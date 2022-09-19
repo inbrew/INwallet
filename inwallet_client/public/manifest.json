@@ -1,0 +1,6 @@
+{
+  "name": "INwallet",
+  "description": "IN 지갑",
+  "manifest_version": 3,
+  "version": "1.0.0"
+}
