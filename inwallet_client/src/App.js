@@ -9,6 +9,13 @@ import ChainSelector from "./component/ChainSelector";
 
 // page
 import Main from "./page/Main";
+import Avalanche from "./page/Avalanche";
+import Binance from "./page/Binance";
+import Ethereum from "./page/Ethereum";
+import Harmony from "./page/Harmony";
+import Klaytn from "./page/Klaytn";
+import Polygon from "./page/Polygon";
+import Stacks from "./page/Stacks";
 
 function App() {
   return (
@@ -17,6 +24,13 @@ function App() {
       <ChainSelector />
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/AVAX" element={<Avalanche />} />
+        <Route path="/BNB" element={<Binance />} />
+        <Route path="/ETH" element={<Ethereum />} />
+        <Route path="/ONE" element={<Harmony />} />
+        <Route path="/KLAY" element={<Klaytn />} />
+        <Route path="/MATIC" element={<Polygon />} />
+        <Route path="/STX" element={<Stacks />} />
       </Routes>
     </BrowserRouter>
   );

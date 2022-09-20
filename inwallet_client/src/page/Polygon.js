@@ -3,9 +3,7 @@ import React from "react";
 // MUI css
 import { Box } from "@mui/material";
 
-// component
-
-export default function Main() {
+export default function Polygon() {
   return (
     <Box>
       <Box
@@ -26,7 +24,7 @@ export default function Main() {
               padding: "5%",
             }}
           >
-            메인 페이지(밑에는 설명이 들어가야함)
+            폴리곤
           </Box>
         </Box>
       </Box>

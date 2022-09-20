@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 export default function ChainSelector() {
+  const navigate = useNavigate();
   const [chain, setChain] = useState("");
+
   const handleClick = (e) => {
     setChain(e.target.value);
   };
-  console.log(chain);
+
+  useEffect(() => {
+    if (chain !== "") {
+      navigate(`/${chain}`);
+    }
+  }, [chain, navigate]);
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center", mb: "5%" }}>
@@ -14,13 +22,13 @@ export default function ChainSelector() {
         <FormControl fullWidth variant="standard">
           <InputLabel>사용할 체인에 IN 해주세요.</InputLabel>
           <Select value={chain} label="Chain" onChange={handleClick}>
-            <MenuItem value={"Ethereum"}>Ethereum(ETH)</MenuItem>
-            <MenuItem value={"Binance"}>Binance(BNB)</MenuItem>
-            <MenuItem value={"Polygon"}>Polygon(MATIC)</MenuItem>
-            <MenuItem value={"Klaytn"}>Klaytn(KLAY)</MenuItem>
-            <MenuItem value={"Avalanche"}>Avalanche(AVAX)</MenuItem>
-            <MenuItem value={"Stacks"}>Stacks(STX)</MenuItem>
-            <MenuItem value={"Harmony"}>Harmony(ONE)</MenuItem>
+            <MenuItem value={"AVAX"}>Avalanche(AVAX)</MenuItem>
+            <MenuItem value={"BNB"}>Binance(BNB)</MenuItem>
+            <MenuItem value={"ETH"}>Ethereum(ETH)</MenuItem>
+            <MenuItem value={"ONE"}>Harmony(ONE)</MenuItem>
+            <MenuItem value={"KLAY"}>Klaytn(KLAY)</MenuItem>
+            <MenuItem value={"MATIC"}>Polygon(MATIC)</MenuItem>
+            <MenuItem value={"STX"}>Stacks(STX)</MenuItem>
           </Select>
         </FormControl>
       </Box>
