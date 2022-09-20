@@ -34,6 +34,7 @@ export default function Ethereum() {
                 padding: "5%",
               }}
             >
+              이더리움 주소만들기
               <ImageChanger />
             </Box>
           </Box>
