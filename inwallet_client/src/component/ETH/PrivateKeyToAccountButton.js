@@ -37,7 +37,6 @@ export default function PrivateKeyToAccountButton() {
       });
       handleClose();
     }
-    // console.log(address);
   };
 
   return (
