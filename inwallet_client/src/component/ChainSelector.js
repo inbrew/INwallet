@@ -1,27 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { useRecoilState } from "recoil";
+import { addressState } from "../recoil/address";
 
 export default function ChainSelector() {
   const navigate = useNavigate();
-  const [chain, setChain] = useState("");
+  const [chain, setChain] = useRecoilState(addressState);
 
   const handleClick = (e) => {
-    setChain(e.target.value);
+    setChain({
+      SelectChain: e.target.value,
+    });
   };
 
   useEffect(() => {
-    if (chain !== "") {
-      navigate(`/${chain}`);
+    if (chain.SelectChain !== "") {
+      navigate(`/${chain.SelectChain}`);
     }
-  }, [chain, navigate]);
+  }, [chain.SelectChain, navigate]);
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center", mb: "5%" }}>
       <Box sx={{ width: "50%" }}>
         <FormControl fullWidth variant="standard">
           <InputLabel>사용할 체인에 IN 해주세요.</InputLabel>
-          <Select value={chain} label="Chain" onChange={handleClick}>
+          <Select
+            value={chain.SelectChain}
+            label="Chain"
+            onChange={handleClick}
+          >
             <MenuItem value={"AVAX"}>Avalanche(AVAX)</MenuItem>
             <MenuItem value={"BNB"}>Binance(BNB)</MenuItem>
             <MenuItem value={"ETH"}>Ethereum(ETH)</MenuItem>
