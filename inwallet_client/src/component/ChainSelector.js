@@ -4,14 +4,15 @@ import { Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 export default function ChainSelector() {
   const [chain, setChain] = useState("");
   const handleClick = (e) => {
-    console.log(e.target.value);
+    setChain(e.target.value);
   };
+  console.log(chain);
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center", mb: "5%" }}>
       <Box sx={{ width: "50%" }}>
-        <FormControl fullWidth variant="filled">
-          <InputLabel>사용할 체인을 선택해주세요.</InputLabel>
+        <FormControl fullWidth variant="standard">
+          <InputLabel>사용할 체인에 IN 해주세요.</InputLabel>
           <Select value={chain} label="Chain" onChange={handleClick}>
             <MenuItem value={"Ethereum"}>Ethereum(ETH)</MenuItem>
             <MenuItem value={"Binance"}>Binance(BNB)</MenuItem>
