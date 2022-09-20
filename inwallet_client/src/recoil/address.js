@@ -6,10 +6,10 @@ const { persistAtom } = recoilPersist();
 export const addressState = atom({
   key: "address",
   default: {
-    SelectChain: "",
     AVAXAddress: "",
     BNBAddress: "",
     ETHAddress: "",
+    ETHPrivateKey: "",
     ONEAddress: "",
     KLAYAddress: "",
     MATICAddress: "",

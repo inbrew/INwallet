@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+
+// mui
 import { Box } from "@mui/material";
+
+// recoil
 import { useRecoilValue } from "recoil";
-import { addressState } from "../recoil/address";
+import { chainState } from "../recoil/chain";
 
 // ETH image
 import ethereum from "../image/ETH/ethereum.png";
@@ -9,7 +13,7 @@ import INethereum from "../image/ETH/IN_ethereum.png";
 
 export default function ImageChanger() {
   const [hoverState, setHoverState] = useState(false);
-  const nowChain = useRecoilValue(addressState);
+  const nowChain = useRecoilValue(chainState);
   let nowImage = null;
   let nowHoverImage = null;
 
@@ -44,6 +48,7 @@ export default function ImageChanger() {
             height="auto"
             onMouseEnter={handleHoverIn}
             onMouseOut={handleHoverOut}
+            alt="nowHoverImage"
           />
         </Box>
       ) : (
@@ -60,6 +65,7 @@ export default function ImageChanger() {
             height="auto"
             onMouseEnter={handleHoverIn}
             onMouseOut={handleHoverOut}
+            alt="nowImage"
           />
         </Box>
       )}

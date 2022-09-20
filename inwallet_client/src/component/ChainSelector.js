@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { useRecoilState } from "recoil";
-import { addressState } from "../recoil/address";
+import { chainState } from "../recoil/chain";
 
 export default function ChainSelector() {
   const navigate = useNavigate();
-  const [chain, setChain] = useRecoilState(addressState);
+  const [chain, setChain] = useRecoilState(chainState);
 
   const handleClick = (e) => {
     setChain({
