@@ -11,6 +11,9 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { useRecoilValue } from "recoil";
 import { addressState } from "../../recoil/address";
 
+// component
+import UserGetPrivatekey from "./UserGetPrivatekey";
+
 export default function INEthereum() {
   const account = useRecoilValue(addressState);
 
@@ -44,6 +47,7 @@ export default function INEthereum() {
           variant="standard"
           sx={{ width: "100%", mt: "20px" }}
         />
+        <UserGetPrivatekey />
       </Box>
       <Box
         sx={{
