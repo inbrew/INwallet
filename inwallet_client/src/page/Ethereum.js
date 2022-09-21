@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import openWallet from "../image/ETH/with_Address.png";
+import { useNavigate } from "react-router-dom";
 
 // recoil
 import { useRecoilState } from "recoil";
@@ -7,25 +7,20 @@ import { addressState } from "../recoil/address";
 
 // MUI css
 import { Box } from "@mui/material";
-// import { Paper } from "@mui/material";
 
 // component
 import ImageChanger from "../component/ImageChanger";
 import PrivateKeyToAccountButton from "../component/ETH/PrivateKeyToAccountButton";
+import INEthereum from "../component/ETH/INEthereum";
 
 // api
 import { createAddress } from "../api/ethereum";
 
-// const styles = {
-//   paperContainer: {
-//     backgroundImage: `url(${openWallet})`,
-//   },
-// };
-
 export default function Ethereum() {
   const [stateAddress, setStateAddress] = useRecoilState(addressState);
   const [nonce, setNonce] = useState(0);
-  const dumy = false;
+  const navigate = useNavigate();
+  const dummy = false;
 
   const handleClick = () => {
     if (nonce === 0) {
@@ -35,6 +30,7 @@ export default function Ethereum() {
         ETHPrivateKey: createResult.privateKey,
       });
       setNonce(1);
+      navigate("/INETH");
       console.log("눌렀어");
     }
   };
@@ -47,12 +43,9 @@ export default function Ethereum() {
 
   return (
     <Box>
-      {dumy ? (
+      {stateAddress ? (
         <Box>
-          {/* <Paper style={styles.paperContainer}>
-            Some text to fill the Paper Component
-          </Paper> */}
-          dfdf
+          <INEthereum />
         </Box>
       ) : (
         <Box
