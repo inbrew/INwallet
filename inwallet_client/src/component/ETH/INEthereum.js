@@ -14,6 +14,7 @@ import { addressState } from "../../recoil/address";
 // component
 import UserGetPrivatekey from "./UserGetPrivatekey";
 import GetBalance from "./GetBalance";
+import SendButton from "./SendButton";
 
 export default function INEthereum() {
   const account = useRecoilValue(addressState);
@@ -48,6 +49,7 @@ export default function INEthereum() {
         />
         <UserGetPrivatekey />
         <GetBalance />
+        <SendButton />
       </Box>
       <Box
         sx={{

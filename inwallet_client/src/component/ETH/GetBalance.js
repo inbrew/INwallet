@@ -22,6 +22,7 @@ export default function GetBalance() {
 
   useEffect(() => {
     handleGetBalance(account.ETHAddress);
+    console.log("getBalance 함수 실행!");
   });
 
   return (
