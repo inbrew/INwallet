@@ -13,6 +13,7 @@ import { addressState } from "../../recoil/address";
 
 // component
 import UserGetPrivatekey from "./UserGetPrivatekey";
+import GetBalance from "./GetBalance";
 
 export default function INEthereum() {
   const account = useRecoilValue(addressState);
@@ -30,8 +31,6 @@ export default function INEthereum() {
           borderRadius: "3%",
         }}
       >
-        <Box>Ethereum(Ropsten)</Box>
-
         <TextField
           id="standard-read-only-input"
           label="Address"
@@ -48,6 +47,7 @@ export default function INEthereum() {
           sx={{ width: "100%", mt: "20px" }}
         />
         <UserGetPrivatekey />
+        <GetBalance />
       </Box>
       <Box
         sx={{

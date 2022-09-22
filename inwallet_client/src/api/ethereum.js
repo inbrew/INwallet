@@ -13,4 +13,14 @@ module.exports = {
   privateKeyToAccount: (privateKey) => {
     return web3.eth.accounts.privateKeyToAccount(privateKey).address;
   },
+
+  getBalance: async (address) => {
+    const balance = await web3.eth.getBalance(address).then((data) => {
+      return data;
+    });
+
+    const convertBalance = await web3.utils.fromWei(`${balance}`, "ether");
+
+    return convertBalance;
+  },
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // recoil
@@ -20,7 +20,6 @@ export default function Ethereum() {
   const [stateAddress, setStateAddress] = useRecoilState(addressState);
   const [nonce, setNonce] = useState(0);
   const navigate = useNavigate();
-  const dummy = false;
 
   const handleClick = () => {
     if (nonce === 0) {
@@ -31,15 +30,14 @@ export default function Ethereum() {
       });
       setNonce(1);
       navigate("/INETH");
-      console.log("눌렀어");
     }
   };
 
-  useEffect(() => {
-    if (stateAddress) {
-      console.log("어드레스 잇어", stateAddress);
-    }
-  }, [stateAddress]);
+  // useEffect(() => {
+  //   if (stateAddress) {
+  //     console.log("어드레스 잇어", stateAddress);
+  //   }
+  // }, [stateAddress]);
 
   return (
     <Box>
