@@ -7,6 +7,7 @@ import "./App.css";
 import Header from "./component/Header";
 import ChainSelector from "./component/ChainSelector";
 import Loading from "./component/Loading";
+import OutWallet from "./component/OutWallet";
 
 // page
 import Main from "./page/Main";
@@ -28,7 +29,7 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      {isLoading ? <Loading /> : null}
+      {isLoading.isLoading ? <Loading /> : null}
       <ChainSelector />
       <Routes>
         <Route path="/" element={<Main />} />
@@ -40,6 +41,7 @@ function App() {
         <Route path="/MATIC" element={<Polygon />} />
         <Route path="/STX" element={<Stacks />} />
       </Routes>
+      <OutWallet />
     </BrowserRouter>
   );
 }

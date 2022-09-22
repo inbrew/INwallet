@@ -33,15 +33,9 @@ export default function Ethereum() {
     }
   };
 
-  // useEffect(() => {
-  //   if (stateAddress) {
-  //     console.log("어드레스 잇어", stateAddress);
-  //   }
-  // }, [stateAddress]);
-
   return (
     <Box>
-      {stateAddress ? (
+      {stateAddress.ETHAddress ? (
         <Box>
           <INEthereum />
         </Box>

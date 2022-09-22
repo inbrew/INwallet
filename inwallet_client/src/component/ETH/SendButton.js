@@ -13,8 +13,20 @@ import {
   Button,
 } from "@mui/material";
 
+// api
+// import { getBalance } from "../../api/ethereum";
+
+// // recoil
+// import { useSetRecoilState } from "recoil";
+// import { loadingState } from "../../recoil/loading";
+// import { useRecoilValue } from "recoil";
+// import { addressState } from "../../recoil/address";
+
 export default function SendButton() {
   const [open, setOpen] = useState(false);
+  //   const [amount, setAmount] = useState(0);
+  //   const setStateLoading = useSetRecoilState(loadingState);
+  //   let result;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -24,8 +36,15 @@ export default function SendButton() {
     setOpen(false);
   };
 
+  //   const handleGetBalance = async (address) => {
+  //     setStateLoading(true);
+  //     result = await getBalance(address);
+  //     setAmount(result);
+  //     setStateLoading(false);
+  //   };
+
   return (
-    <Box sx={{ display: "flex", justifyContent: "center" }}>
+    <Box sx={{ display: "flex", justifyContent: "center", mt: "3%" }}>
       <Box sx={{ cursor: "pointer" }}>
         <img
           src={sendMoneyImage}
@@ -37,10 +56,7 @@ export default function SendButton() {
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>이더를 전송합니다.</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              이미 계정을 갖고 있는 경우 비밀키를 통해 계정을 불러올 수
-              있습니다.
-            </DialogContentText>
+            <DialogContentText>잔액 : 12312</DialogContentText>
             <TextField
               autoFocus
               margin="dense"

@@ -10,6 +10,7 @@ export const addressState = atom({
     BNBAddress: "",
     ETHAddress: "",
     ETHPrivateKey: "",
+    ETHBalance: 0,
     ONEAddress: "",
     KLAYAddress: "",
     MATICAddress: "",
