@@ -9,21 +9,26 @@ import { getBalance } from "../../api/ethereum";
 // recoil
 import { useRecoilValue } from "recoil";
 import { addressState } from "../../recoil/address";
+import { useSetRecoilState } from "recoil";
+import { loadingState } from "../../recoil/loading";
 
 export default function GetBalance() {
   const account = useRecoilValue(addressState);
+  const setStateLoading = useSetRecoilState(loadingState);
   const [amount, setAmount] = useState(0);
   let result;
 
   const handleGetBalance = async (address) => {
+    setStateLoading(true);
     result = await getBalance(address);
     setAmount(result);
+    setStateLoading(false);
   };
 
   useEffect(() => {
     handleGetBalance(account.ETHAddress);
     console.log("getBalance 함수 실행!");
-  });
+  }, []);
 
   return (
     <Box>

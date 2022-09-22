@@ -6,6 +6,7 @@ import "./App.css";
 // component
 import Header from "./component/Header";
 import ChainSelector from "./component/ChainSelector";
+import Loading from "./component/Loading";
 
 // page
 import Main from "./page/Main";
@@ -17,10 +18,17 @@ import Klaytn from "./page/Klaytn";
 import Polygon from "./page/Polygon";
 import Stacks from "./page/Stacks";
 
+// recoil
+import { useRecoilValue } from "recoil";
+import { loadingState } from "./recoil/loading";
+
 function App() {
+  const isLoading = useRecoilValue(loadingState);
+
   return (
     <BrowserRouter>
       <Header />
+      {isLoading ? <Loading /> : null}
       <ChainSelector />
       <Routes>
         <Route path="/" element={<Main />} />
