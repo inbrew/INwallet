@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 // MUI css
 import { Box, Typography } from "@mui/material";
@@ -7,9 +7,8 @@ import { Box, Typography } from "@mui/material";
 import { getBalance } from "../../api/ethereum";
 
 // recoil
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { addressState } from "../../recoil/address";
-import { useSetRecoilState } from "recoil";
 import { loadingState } from "../../recoil/loading";
 
 export default function GetBalance() {
@@ -17,20 +16,26 @@ export default function GetBalance() {
   const setStateLoading = useSetRecoilState(loadingState);
   const [amount, setAmount] = useState(0);
 
-  let result;
+  const handleGetBalance = useCallback(async () => {
+    setStateLoading({
+      isLoading: true,
+    });
 
-  const handleGetBalance = async (address) => {
-    setStateLoading(true);
-    result = await getBalance(address);
-    setAmount(result);
-    // setAccount({ ETHBalance: result });
-    setStateLoading(false);
-  };
+    setAmount(await getBalance(account.ETHAddress));
+
+    setStateLoading({
+      isLoading: false,
+    });
+
+    setAccount((prev) => ({
+      ...prev,
+      ETHBalance: amount,
+    }));
+  }, [account.ETHAddress, setAccount, setStateLoading, amount]);
 
   useEffect(() => {
-    // handleGetBalance(account.ETHAddress);
-    console.log("getBalance 함수 실행!", account);
-  }, []);
+    handleGetBalance();
+  }, [handleGetBalance]);
 
   return (
     <Box>

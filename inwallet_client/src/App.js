@@ -25,7 +25,6 @@ import { loadingState } from "./recoil/loading";
 
 function App() {
   const isLoading = useRecoilValue(loadingState);
-
   return (
     <BrowserRouter>
       <Header />

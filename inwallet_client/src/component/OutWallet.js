@@ -24,7 +24,7 @@ export default function OutWallet() {
       BNBAddress: "",
       ETHAddress: "",
       ETHPrivateKey: "",
-      ETHBalance: 0,
+      ETHBalance: "",
       ONEAddress: "",
       KLAYAddress: "",
       MATICAddress: "",
@@ -38,7 +38,7 @@ export default function OutWallet() {
     outLoading({
       isLoading: false,
     });
-
+    console.log("초기화됨");
     navigate("/");
   };
 
