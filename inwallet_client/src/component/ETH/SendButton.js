@@ -11,22 +11,23 @@ import {
   DialogTitle,
   TextField,
   Button,
+  Slide,
 } from "@mui/material";
 
-// api
-// import { getBalance } from "../../api/ethereum";
-
-// // recoil
+// recoil
 // import { useSetRecoilState } from "recoil";
 // import { loadingState } from "../../recoil/loading";
-// import { useRecoilValue } from "recoil";
-// import { addressState } from "../../recoil/address";
+import { useRecoilValue } from "recoil";
+import { addressState } from "../../recoil/address";
+
+// api
+import { isAddress } from "../../api/ethereum";
 
 export default function SendButton() {
   const [open, setOpen] = useState(false);
-  //   const [amount, setAmount] = useState(0);
-  //   const setStateLoading = useSetRecoilState(loadingState);
-  //   let result;
+  const [isCheck, setIsCheck] = useState(false);
+  const account = useRecoilValue(addressState);
+  let isValidAddress;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -34,14 +35,15 @@ export default function SendButton() {
 
   const handleClose = () => {
     setOpen(false);
+    setIsCheck(false);
   };
 
-  //   const handleGetBalance = async (address) => {
-  //     setStateLoading(true);
-  //     result = await getBalance(address);
-  //     setAmount(result);
-  //     setStateLoading(false);
-  //   };
+  const handleChangeAddress = (e) => {
+    isValidAddress = isAddress(e.target.value);
+    if (isValidAddress) {
+      setIsCheck(true);
+    }
+  };
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center", mt: "3%" }}>
@@ -56,16 +58,31 @@ export default function SendButton() {
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>이더를 전송합니다.</DialogTitle>
           <DialogContent>
-            <DialogContentText>잔액 : 12312</DialogContentText>
+            <DialogContentText>
+              잔액 : {account.ETHBalance} ETH(Ropsten)
+            </DialogContentText>
             <TextField
               autoFocus
               margin="dense"
               id="name"
-              label="Private Key"
-              type="email"
+              label="받을 주소"
               fullWidth
               variant="standard"
+              onChange={handleChangeAddress}
             />
+
+            <Slide direction="up" in={isCheck}>
+              <Box>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="받을 주소"
+                  fullWidth
+                  variant="standard"
+                />
+              </Box>
+            </Slide>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>취소</Button>
