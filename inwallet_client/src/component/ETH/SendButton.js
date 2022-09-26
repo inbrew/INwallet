@@ -17,13 +17,20 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { green } from "@mui/material/colors";
 
 // recoil
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
 import { loadingState } from "../../recoil/loading";
-import { useRecoilValue } from "recoil";
+// import { useRecoilValue } from "recoil";
 import { addressState } from "../../recoil/address";
+import { txState } from "../../recoil/tx";
 
 // api
-import { isAddress, getGasPrice, sendTransaction } from "../../api/ethereum";
+import {
+  isAddress,
+  getGasPrice,
+  sendTransaction,
+  getNonce,
+  gasLimit,
+} from "../../api/ethereum";
 
 export default function SendButton() {
   const [open, setOpen] = useState(false);
@@ -33,12 +40,16 @@ export default function SendButton() {
   const setLoading = useSetRecoilState(loadingState);
   let isValidAddress;
   const [transactionOBJ, setTransactionOBJ] = useState({
+    nonce: 0,
     from: account.ETHAddress,
     to: "",
     value: "",
     gasPrice: "",
+    gasLimit: "",
   });
   const [isErrorValue, setIsErrorValue] = useState(false);
+  const [isTransaction, setIsTransaction] = useRecoilState(txState);
+  const [isTransanctionProgress, setIsTransanctionProgress] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -58,6 +69,7 @@ export default function SendButton() {
       value: "",
       gasPrice: "",
     });
+    setIsTransanctionProgress(false);
   };
 
   const handleChangeAddress = (e) => {
@@ -86,24 +98,52 @@ export default function SendButton() {
       setIsErrorValue(true);
     } else {
       setIsErrorValue(false);
-
+      setTransactionOBJ((prev) => ({
+        ...prev,
+        value: e.target.value,
+      }));
       let gasFee = await getGasPrice();
-      if (gasFee) {
+      let addressNonce = await getNonce(account.ETHAddress);
+      let getGasLimit = await gasLimit({
+        to: transactionOBJ.to,
+        from: transactionOBJ.from,
+        value: transactionOBJ.value,
+      });
+
+      if (gasFee && addressNonce && getGasLimit) {
         setTransactionOBJ((prev) => ({
           ...prev,
+          nonce: addressNonce,
           value: e.target.value,
           gasPrice: gasFee,
+          gasLimit: getGasLimit,
         }));
       }
     }
   };
 
-  const handleSendTransaction = () => {
-    console.log("보내기 누름");
-    sendTransaction(transactionOBJ);
+  const handleSendTransaction = async () => {
+    setLoading({
+      isLoading: true,
+    });
+    setIsTransanctionProgress(true);
+    const Tx = await sendTransaction(transactionOBJ, account.ETHPrivateKey);
+
+    // console.log(Tx);
+    if (Tx) {
+      setIsTransaction({
+        tx: Tx,
+      });
+
+      handleClose();
+      setLoading({
+        isLoading: false,
+      });
+    }
   };
 
-  console.log("현재 트랜잭션 상태는? ", transactionOBJ);
+  // console.log("현재 트랜잭션 상태는? ", transactionOBJ);
+  // console.log("잘 바꼈을라나?", isTransaction);
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center", mt: "3%" }}>
@@ -174,7 +214,7 @@ export default function SendButton() {
                     }}
                     onChange={handleChangeValue}
                   />
-                ) : (
+                ) : !isTransanctionProgress ? (
                   <TextField
                     autoFocus
                     margin="dense"
@@ -188,13 +228,36 @@ export default function SendButton() {
                     }}
                     onChange={handleChangeValue}
                   />
+                ) : (
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="standard-read-only-input"
+                    label="보낼 금액 : 거래 진행 중"
+                    fullWidth
+                    variant="standard"
+                    InputProps={{
+                      readOnly: true,
+                      endAdornment: (
+                        <CheckCircleIcon sx={{ color: green[500] }} />
+                      ),
+                    }}
+                  />
                 )}
               </Box>
             </Slide>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleSendTransaction}>보내기</Button>
-            <Button onClick={handleClose}>취소</Button>
+            {isTransanctionProgress ? null : isCheck ? (
+              <Box>
+                <Button onClick={handleSendTransaction}>보내기</Button>
+                <Button onClick={handleClose}>취소</Button>
+              </Box>
+            ) : (
+              <Box>
+                <Button onClick={handleClose}>취소</Button>
+              </Box>
+            )}
           </DialogActions>
         </Dialog>
       </Box>

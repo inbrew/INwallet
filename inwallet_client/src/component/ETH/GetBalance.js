@@ -7,14 +7,16 @@ import { Box, Typography } from "@mui/material";
 import { getBalance } from "../../api/ethereum";
 
 // recoil
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
 import { addressState } from "../../recoil/address";
 import { loadingState } from "../../recoil/loading";
+import { txState } from "../../recoil/tx";
 
 export default function GetBalance() {
   const [account, setAccount] = useRecoilState(addressState);
   const setStateLoading = useSetRecoilState(loadingState);
   const [amount, setAmount] = useState(0);
+  const tx = useRecoilValue(txState);
 
   const handleGetBalance = useCallback(async () => {
     setStateLoading({
@@ -35,7 +37,7 @@ export default function GetBalance() {
 
   useEffect(() => {
     handleGetBalance();
-  }, [handleGetBalance]);
+  }, [handleGetBalance, tx]);
 
   return (
     <Box>

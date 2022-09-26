@@ -45,12 +45,54 @@ module.exports = {
     return gasPrice;
   },
 
-  sendTransaction: (transactionOBJ) => {
-    // const convertBalance = web3.utils.toWei(`${transactionOBJ.value}`, "ether");
-    transactionOBJ.value = web3.utils.toWei(`${transactionOBJ.value}`, "ether");
-    // console.log(transactionOBJ);
-    web3.eth.sendTransaction(transactionOBJ).then((data) => {
-      console.log("여기가 문제야?", data);
-    });
+  // 보내는(from) 주소의 트랜잭션 nonce 가져옴
+  getNonce: (address) => {
+    return web3.eth.getTransactionCount(address);
+  },
+
+  // 가스 리밋
+  gasLimit: async (obj) => {
+    const result = await web3.eth
+      .estimateGas(obj)
+      .then((data) => {
+        data = web3.utils.toHex(data);
+        return data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    return result;
+  },
+
+  // 이더 보내기
+  sendTransaction: async (transactionOBJ, privateKey) => {
+    transactionOBJ.value = await web3.utils.toWei(
+      `${transactionOBJ.value}`,
+      "ether"
+    );
+
+    const signedTx = await web3.eth.accounts.signTransaction(
+      transactionOBJ,
+      privateKey
+    );
+
+    const resultTx = await web3.eth.sendSignedTransaction(
+      signedTx.rawTransaction,
+      function (error, hash) {
+        if (!error) {
+          console.log(
+            "🎉 거래가 성사되었습니다. 해시는: ",
+            hash,
+            "\n Check Alchemy's Mempool to view the status of your transaction!"
+          );
+          return hash;
+        } else {
+          console.log("❗거래중 문제가 발생했습니다.:", error);
+        }
+      }
+    );
+
+    return resultTx;
   },
 };
