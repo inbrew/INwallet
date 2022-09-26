@@ -23,7 +23,7 @@ import { useRecoilValue } from "recoil";
 import { addressState } from "../../recoil/address";
 
 // api
-import { isAddress } from "../../api/ethereum";
+import { isAddress, getGasPrice, sendTransaction } from "../../api/ethereum";
 
 export default function SendButton() {
   const [open, setOpen] = useState(false);
@@ -32,6 +32,13 @@ export default function SendButton() {
   const account = useRecoilValue(addressState);
   const setLoading = useSetRecoilState(loadingState);
   let isValidAddress;
+  const [transactionOBJ, setTransactionOBJ] = useState({
+    from: account.ETHAddress,
+    to: "",
+    value: "",
+    gasPrice: "",
+  });
+  const [isErrorValue, setIsErrorValue] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -44,6 +51,13 @@ export default function SendButton() {
       isLoading: false,
     });
     setIsError(false);
+    setIsErrorValue(false);
+    setTransactionOBJ({
+      from: account.ETHAddress,
+      to: "",
+      value: "",
+      gasPrice: "",
+    });
   };
 
   const handleChangeAddress = (e) => {
@@ -53,6 +67,10 @@ export default function SendButton() {
     setIsError(true);
     isValidAddress = isAddress(e.target.value);
     if (isValidAddress) {
+      setTransactionOBJ((prev) => ({
+        ...prev,
+        to: e.target.value,
+      }));
       setIsCheck(true);
       setLoading({
         isLoading: false,
@@ -62,6 +80,30 @@ export default function SendButton() {
       setIsCheck(false);
     }
   };
+
+  const handleChangeValue = async (e) => {
+    if (e.target.value > Number(account.ETHBalance) || e.target.value < 0) {
+      setIsErrorValue(true);
+    } else {
+      setIsErrorValue(false);
+
+      let gasFee = await getGasPrice();
+      if (gasFee) {
+        setTransactionOBJ((prev) => ({
+          ...prev,
+          value: e.target.value,
+          gasPrice: gasFee,
+        }));
+      }
+    }
+  };
+
+  const handleSendTransaction = () => {
+    console.log("보내기 누름");
+    sendTransaction(transactionOBJ);
+  };
+
+  console.log("현재 트랜잭션 상태는? ", transactionOBJ);
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center", mt: "3%" }}>
@@ -117,19 +159,41 @@ export default function SendButton() {
 
             <Slide direction="up" in={isCheck}>
               <Box>
-                <TextField
-                  autoFocus
-                  margin="dense"
-                  id="name"
-                  label="보낼 금액"
-                  fullWidth
-                  variant="standard"
-                />
+                {isErrorValue ? (
+                  <TextField
+                    error
+                    autoFocus
+                    margin="dense"
+                    id="standard-number"
+                    label="금액이 올바르지 않습니다."
+                    type="number"
+                    fullWidth
+                    variant="standard"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    onChange={handleChangeValue}
+                  />
+                ) : (
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="standard-number"
+                    label="보낼 금액"
+                    type="number"
+                    fullWidth
+                    variant="standard"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    onChange={handleChangeValue}
+                  />
+                )}
               </Box>
             </Slide>
           </DialogContent>
           <DialogActions>
-            <Button>보내기</Button>
+            <Button onClick={handleSendTransaction}>보내기</Button>
             <Button onClick={handleClose}>취소</Button>
           </DialogActions>
         </Dialog>

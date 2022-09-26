@@ -31,4 +31,26 @@ module.exports = {
   isAddress: (address) => {
     return web3.utils.isAddress(address);
   },
+
+  // 현재 가스 가격 가져오기
+  getGasPrice: async () => {
+    const gasPrice = await web3.eth
+      .getGasPrice()
+      .then((price) => {
+        return price;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    return gasPrice;
+  },
+
+  sendTransaction: (transactionOBJ) => {
+    // const convertBalance = web3.utils.toWei(`${transactionOBJ.value}`, "ether");
+    transactionOBJ.value = web3.utils.toWei(`${transactionOBJ.value}`, "ether");
+    // console.log(transactionOBJ);
+    web3.eth.sendTransaction(transactionOBJ).then((data) => {
+      console.log("여기가 문제야?", data);
+    });
+  },
 };
