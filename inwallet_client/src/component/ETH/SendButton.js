@@ -17,9 +17,8 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { green } from "@mui/material/colors";
 
 // recoil
-import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 import { loadingState } from "../../recoil/loading";
-// import { useRecoilValue } from "recoil";
 import { addressState } from "../../recoil/address";
 import { txState } from "../../recoil/tx";
 
@@ -48,8 +47,9 @@ export default function SendButton() {
     gasLimit: "",
   });
   const [isErrorValue, setIsErrorValue] = useState(false);
-  const [isTransaction, setIsTransaction] = useRecoilState(txState);
   const [isTransanctionProgress, setIsTransanctionProgress] = useState(false);
+  const setTxState = useSetRecoilState(txState);
+  // const resetTxstate = useResetRecoilState(txState);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -70,6 +70,7 @@ export default function SendButton() {
       gasPrice: "",
     });
     setIsTransanctionProgress(false);
+    // resetTxstate();
   };
 
   const handleChangeAddress = (e) => {
@@ -128,17 +129,16 @@ export default function SendButton() {
     });
     setIsTransanctionProgress(true);
     const Tx = await sendTransaction(transactionOBJ, account.ETHPrivateKey);
-
+    setOpen(false);
     // console.log(Tx);
     if (Tx) {
-      setIsTransaction({
-        tx: Tx,
-      });
-
-      handleClose();
       setLoading({
         isLoading: false,
       });
+      setTxState({
+        tx: Tx,
+      });
+      handleClose();
     }
   };
 

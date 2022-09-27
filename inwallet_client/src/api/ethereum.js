@@ -95,4 +95,17 @@ module.exports = {
 
     return resultTx;
   },
+
+  // 보낸 트랜잭션 거래내역 용으로 확인하기.
+  getTransaction: async (tx) => {
+    return await web3.eth.getTransaction(tx).then((data) => {
+      const result = {
+        ...data,
+        gas: web3.utils.fromWei(`${data.gas}`, "ether"),
+        gasPrice: web3.utils.fromWei(`${data.gasPrice}`, "ether"),
+        value: web3.utils.fromWei(`${data.value}`, "ether"),
+      };
+      return result;
+    });
+  },
 };
