@@ -1,7 +1,16 @@
 import React, { useEffect, useCallback, useState } from "react";
 
 // MUI css
-import { ListItem, ListItemText, Typography, Divider } from "@mui/material";
+import {
+  Box,
+  ListItem,
+  ListItemText,
+  Typography,
+  Divider,
+  Dialog,
+  DialogTitle,
+  List,
+} from "@mui/material";
 
 // recoil
 import { useRecoilValue } from "recoil";
@@ -10,51 +19,49 @@ import { txState } from "../../recoil/tx";
 // api
 import { getTransaction } from "../../api/ethereum";
 
-// 서버가 필요함. useCallback을 쓰면 setState가 재사용되면서 무한루프 돔
-
 export default function TransactionListItem() {
   const transactions = useRecoilValue(txState);
+  //   const address = useRecoilValue(addressState);
   const [addNewTransaction, setAddNewTransaction] = useState({
     tx: [],
   });
+  const [open, setOpen] = React.useState(false);
+
+  const renderTransaction = (txs) => {
+    if (txs.length > 0) {
+      setAddNewTransaction((prev) => ({
+        tx: txs,
+      }));
+    }
+  };
 
   const handleEventTransaction = useCallback(async () => {
-    if (transactions.tx) {
-      const resultGetTx = await getTransaction(transactions.tx.transactionHash);
+    if (transactions) {
+      const resultGetTx = await getTransaction(transactions);
 
-      if (addNewTransaction.tx.length === 0 && resultGetTx) {
-        setAddNewTransaction(() => ({
-          tx: [resultGetTx],
-        }));
-      } else {
-        for (let i = 0; i < addNewTransaction.tx.length; i++) {
-          if (
-            resultGetTx.transactionIndex ===
-            addNewTransaction.tx[i].transactionIndex
-          ) {
-            continue;
-          } else {
-            setAddNewTransaction((prev) => ({
-              tx: [...prev.tx, resultGetTx],
-            }));
-          }
-        }
+      if (resultGetTx) {
+        renderTransaction(resultGetTx);
       }
-
-      //   console.log("트랜잭션 값은 불러져왔다. resultGetTx", resultGetTx);
     }
-  }, [addNewTransaction.tx, transactions.tx]);
+  }, [transactions]);
 
-  //   console.log("이쪽 addNewTransaction", addNewTransaction.tx.length);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     handleEventTransaction();
   }, [handleEventTransaction, transactions]);
 
+  console.log(addNewTransaction.tx[0]);
   return (
-    <>
+    <Box>
       {addNewTransaction.tx.length === 0 ? (
-        <>
+        <Box>
           <ListItem alignItems="flex-start">
             <ListItemText
               primary="최근 거래가 없습니다."
@@ -70,38 +77,18 @@ export default function TransactionListItem() {
               }
             />
           </ListItem>
-        </>
-      ) : addNewTransaction.tx.length === 1 ? (
-        <>
-          {addNewTransaction.tx.map((el, i) => (
-            <ListItem alignItems="flex-start" key={i}>
-              <ListItemText
-                primary={`Tx: ${el.hash}`}
-                secondary={
-                  <React.Fragment>
-                    <Typography
-                      sx={{ display: "inline" }}
-                      component="span"
-                      variant="body2"
-                      color="text.primary"
-                      key={i}
-                    >
-                      To: {el.to}
-                    </Typography>
-                    {" — I'll be in your neighborhood doing errands this…"}
-                  </React.Fragment>
-                }
-              />
-            </ListItem>
-          ))}
-        </>
+        </Box>
       ) : (
-        <>
-          {addNewTransaction.tx.map((el, i) => (
-            <>
-              <ListItem alignItems="flex-start" key={i}>
+        <Box>
+          {addNewTransaction.tx.map((el) => (
+            <Box
+              key={`Box ${el.transactionIndex}`}
+              onClick={handleClickOpen}
+              sx={{ cursor: "pointer" }}
+            >
+              <ListItem alignItems="flex-start" key={el.transactionIndex}>
                 <ListItemText
-                  primary={`Tx: ${el.hash}`}
+                  primary={`To: ${el.to}`}
                   secondary={
                     <React.Fragment>
                       <Typography
@@ -109,20 +96,59 @@ export default function TransactionListItem() {
                         component="span"
                         variant="body2"
                         color="text.primary"
-                        key={i}
+                        key={el.transactionIndex}
                       >
-                        To: {el.to}
+                        Value: {el.value} ETH(Goerli)
                       </Typography>
-                      {" — I'll be in your neighborhood doing errands this…"}
                     </React.Fragment>
                   }
                 />
               </ListItem>
-            </>
+              <Divider key={`Divider ${el.transactionIndex}`} />
+              <Dialog onClose={handleClose} open={open}>
+                <DialogTitle>
+                  상세 트랜잭션 내역(esc를 눌러 닫아주세요)
+                </DialogTitle>
+                <List sx={{ pt: 0 }}>
+                  <ListItem
+                    autoFocus
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                    }}
+                  >
+                    <Typography variant="h6" sx={{ mt: "10px" }}>
+                      Transaction Hash
+                    </Typography>
+                    {el.hash}
+                    <Typography variant="h6" sx={{ mt: "10px" }}>
+                      Block Number
+                    </Typography>
+                    {el.blockNumber}
+                    <Typography variant="h6" sx={{ mt: "10px" }}>
+                      From (보낸 주소)
+                    </Typography>
+                    {el.from}
+                    <Typography variant="h6" sx={{ mt: "10px" }}>
+                      To (받는 주소)
+                    </Typography>
+                    {el.to}
+                    <Typography variant="h6" sx={{ mt: "10px" }}>
+                      거래 수수료(Gas Price)
+                    </Typography>
+                    {el.gasPrice} ETH(Goerli)
+                    <Typography variant="h6" sx={{ mt: "10px" }}>
+                      거래 가격(Value)
+                    </Typography>
+                    {el.value} ETH(Goerli)
+                  </ListItem>
+                </List>
+              </Dialog>
+            </Box>
           ))}
-          <Divider />
-        </>
+        </Box>
       )}
-    </>
+    </Box>
   );
 }

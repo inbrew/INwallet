@@ -42,7 +42,7 @@ export default function GetBalance() {
   return (
     <Box>
       <Box sx={{ display: "flex", justifyContent: "center", mt: "5%" }}>
-        <Typography variant="h5">{amount} ETH(Ropsten)</Typography>
+        <Typography variant="h5">{amount} ETH(Goerli)</Typography>
       </Box>
     </Box>
   );

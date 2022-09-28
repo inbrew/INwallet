@@ -11,8 +11,10 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "alchemy-sdk": "^2.0.5-rc1",
     "axios": "^0.27.2",
     "buffer": "^6.0.3",
+    "dotenv": "^16.0.2",
     "process": "^0.11.10",
     "react": "^18.2.0",
     "react-app-rewired": "^2.2.1",
@@ -54,5 +56,6 @@
   "devDependencies": {
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0"
-  }
+  },
+  "proxy": "https://testnet-api.blocksdk.com/v3/eth"
 }

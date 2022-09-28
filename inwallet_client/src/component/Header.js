@@ -27,7 +27,7 @@ export default function Header() {
       <img
         src={logo}
         width="auto"
-        height="200px"
+        height="100px"
         onClick={() => handleClick()}
         alt="logo"
       />

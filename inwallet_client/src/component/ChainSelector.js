@@ -21,7 +21,7 @@ export default function ChainSelector() {
   }, [chain.SelectChain, navigate]);
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "center", mb: "5%" }}>
+    <Box sx={{ display: "flex", justifyContent: "center", mb: "3%" }}>
       <Box sx={{ width: "50%" }}>
         <FormControl fullWidth variant="standard">
           <InputLabel>사용할 체인에 IN 해주세요.</InputLabel>

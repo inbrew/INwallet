@@ -159,7 +159,7 @@ export default function SendButton() {
           <DialogTitle>이더를 전송합니다.</DialogTitle>
           <DialogContent>
             <DialogContentText sx={{ mb: "5%" }}>
-              잔액 : {account.ETHBalance} ETH(Ropsten)
+              잔액 : {account.ETHBalance} ETH(Goerli)
             </DialogContentText>
 
             {isError ? (

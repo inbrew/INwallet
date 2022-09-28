@@ -1,8 +1,17 @@
-// const axios = require("axios");
+const axios = require("axios");
+axios.defaults.withCredentials = true;
+
+// .env
+const key = {
+  apikey: process.env.REACT_APP_BLOCKSDK_API_KEY,
+};
+
+// BlockSDK
+const BlockSdkApiKey = key.apikey;
 
 // web3.js
 const Web3 = require("web3");
-const rpcURL = "https://ropsten.infura.io/v3/fa408e18052a47b18c82a59f8b54c1c6";
+const rpcURL = "https://goerli.infura.io/v3/fa408e18052a47b18c82a59f8b54c1c6";
 const web3 = new Web3(rpcURL);
 
 module.exports = {
@@ -21,7 +30,6 @@ module.exports = {
     const balance = await web3.eth.getBalance(address).then((data) => {
       return data;
     });
-
     const convertBalance = await web3.utils.fromWei(`${balance}`, "ether");
 
     return convertBalance;
@@ -96,16 +104,49 @@ module.exports = {
     return resultTx;
   },
 
+  getTxByAddress: async (address) => {
+    // const getChainID = `/info?api_token=${BlockSdkApiKey}`;
+    const getAddressInfoAPI = `/address/${address}/info?api_token=${BlockSdkApiKey}&offset=0&limit=10&order_direction=desc`;
+    const getTransactionByAddress = await axios
+      .get(getAddressInfoAPI)
+      .then((res) => {
+        return res.data.payload.transactions;
+      })
+      .catch((err) => {
+        console.log("getTxByAddress에러", err);
+      });
+
+    return getTransactionByAddress;
+  },
+
   // 보낸 트랜잭션 거래내역 용으로 확인하기.
   getTransaction: async (tx) => {
-    return await web3.eth.getTransaction(tx).then((data) => {
-      const result = {
-        ...data,
-        gas: web3.utils.fromWei(`${data.gas}`, "ether"),
-        gasPrice: web3.utils.fromWei(`${data.gasPrice}`, "ether"),
-        value: web3.utils.fromWei(`${data.value}`, "ether"),
-      };
-      return result;
-    });
+    console.log("getTransaction 함수에 들어온 tx", tx);
+    let result = [];
+
+    for (let i = 0; i < tx.length; i++) {
+      result.push(
+        await web3.eth.getTransaction(tx[i]).then((data) => {
+          const result = {
+            ...data,
+            gas: web3.utils.fromWei(`${data.gas}`, "ether"),
+            gasPrice: web3.utils.fromWei(`${data.gasPrice}`, "ether"),
+            value: web3.utils.fromWei(`${data.value}`, "ether"),
+          };
+          return result;
+        })
+      );
+    }
+
+    return result;
+    // return await web3.eth.getTransaction(tx).then((data) => {
+    //   const result = {
+    //     ...data,
+    //     gas: web3.utils.fromWei(`${data.gas}`, "ether"),
+    //     gasPrice: web3.utils.fromWei(`${data.gasPrice}`, "ether"),
+    //     value: web3.utils.fromWei(`${data.value}`, "ether"),
+    //   };
+    //   return result;
+    // });
   },
 };
