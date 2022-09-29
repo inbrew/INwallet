@@ -7,49 +7,40 @@ import { Box, Typography } from "@mui/material";
 import { getBalance, getTxByAddress } from "../../api/binance";
 
 // recoil
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { addressState } from "../../recoil/address";
-import { loadingState } from "../../recoil/loading";
 import { txState } from "../../recoil/tx";
 
 export default function GetBalance() {
   const [account, setAccount] = useRecoilState(addressState);
-  const setStateLoading = useSetRecoilState(loadingState);
   const [amount, setAmount] = useState(0);
   const [tx, setTx] = useRecoilState(txState);
 
   const handleGetTxList = useCallback(async () => {
     const prevTx = await getTxByAddress(account.BNBAddress);
 
-    if (prevTx.length > tx.length && prevTx) {
-      setTx(prevTx);
+    if (tx.bnbTx.length < prevTx.length) {
+      setTx({
+        bnbTx: prevTx,
+      });
     }
-  }, [account.BNBAddress, setTx, tx.length]);
+  }, [account.BNBAddress, setTx, tx]);
 
   const handleGetBalance = useCallback(async () => {
-    setStateLoading({
-      isLoading: true,
-    });
-
     setAmount(await getBalance(account.BNBAddress));
-
-    setStateLoading({
-      isLoading: false,
-    });
 
     setAccount((prev) => ({
       ...prev,
       BNBBalance: amount,
     }));
-  }, [account.BNBAddress, setAccount, setStateLoading, amount]);
+  }, [account.BNBAddress, setAccount, amount]);
 
   useEffect(() => {
-    if (tx) {
-      handleGetBalance();
-
+    handleGetBalance();
+    if (tx.bnbTx) {
       handleGetTxList();
     }
-  }, [handleGetBalance, tx, handleGetTxList]);
+  }, [handleGetBalance, tx.bnbTx, handleGetTxList]);
 
   return (
     <Box>

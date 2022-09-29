@@ -15,7 +15,7 @@ import { txState } from "../../recoil/tx";
 import { loadingState } from "../../recoil/loading";
 
 // api
-import { getTransaction } from "../../api/ethereum";
+import { getTransaction } from "../../api/binance";
 
 // component
 // import DialogTransaction from "./DialogTransaction";
@@ -45,12 +45,12 @@ export default function TransactionListItem() {
   );
 
   const handleEventTransaction = useCallback(async () => {
-    if (transactions.ethTx) {
+    if (transactions.bnbTx) {
       setLoading({
         isLoading: true,
       });
 
-      const resultGetTx = await getTransaction(transactions.ethTx);
+      const resultGetTx = await getTransaction(transactions.bnbTx);
 
       if (resultGetTx) {
         renderTransaction(resultGetTx);
@@ -60,7 +60,7 @@ export default function TransactionListItem() {
 
   useEffect(() => {
     handleEventTransaction();
-  }, [handleEventTransaction, transactions.ethTx]);
+  }, [handleEventTransaction, transactions.bnbTx]);
 
   //   console.log("그래서 여긴 뭐야?", addNewTransaction);
   return (
@@ -99,7 +99,7 @@ export default function TransactionListItem() {
                         color="text.primary"
                         key={el.transactionIndex}
                       >
-                        Value: {el.value} ETH(Goerli)
+                        Value: {el.value} BNB(smart chain - test)
                       </Typography>
                     </React.Fragment>
                   }

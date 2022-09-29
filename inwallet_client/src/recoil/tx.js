@@ -6,7 +6,8 @@ const { persistAtom } = recoilPersist();
 export const txState = atom({
   key: "transactionHash",
   default: {
-    tx: null,
+    ethTx: [],
+    bnbTx: [],
   },
   effects_UNSTABLE: [persistAtom],
 });

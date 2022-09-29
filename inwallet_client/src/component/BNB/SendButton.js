@@ -1,5 +1,3 @@
-// 바이낸스 용으로 고쳐야함
-
 import React, { useState } from "react";
 import sendMoneyImage from "../../image/sendMoney.png";
 
@@ -31,7 +29,7 @@ import {
   sendTransaction,
   getNonce,
   gasLimit,
-} from "../../api/ethereum";
+} from "../../api/binance";
 
 export default function SendButton() {
   const [open, setOpen] = useState(false);
@@ -42,7 +40,7 @@ export default function SendButton() {
   let isValidAddress;
   const [transactionOBJ, setTransactionOBJ] = useState({
     nonce: 0,
-    from: account.ETHAddress,
+    from: account.BNBAddress,
     to: "",
     value: "",
     gasPrice: "",
@@ -51,7 +49,6 @@ export default function SendButton() {
   const [isErrorValue, setIsErrorValue] = useState(false);
   const [isTransanctionProgress, setIsTransanctionProgress] = useState(false);
   const setTxState = useSetRecoilState(txState);
-  // const resetTxstate = useResetRecoilState(txState);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -66,13 +63,12 @@ export default function SendButton() {
     setIsError(false);
     setIsErrorValue(false);
     setTransactionOBJ({
-      from: account.ETHAddress,
+      from: account.BNBAddress,
       to: "",
       value: "",
       gasPrice: "",
     });
     setIsTransanctionProgress(false);
-    // resetTxstate();
   };
 
   const handleChangeAddress = (e) => {
@@ -97,7 +93,7 @@ export default function SendButton() {
   };
 
   const handleChangeValue = async (e) => {
-    if (e.target.value > Number(account.ETHBalance) || e.target.value < 0) {
+    if (e.target.value > Number(account.BNBBalance) || e.target.value < 0) {
       setIsErrorValue(true);
     } else {
       setIsErrorValue(false);
@@ -106,7 +102,7 @@ export default function SendButton() {
         value: e.target.value,
       }));
       let gasFee = await getGasPrice();
-      let addressNonce = await getNonce(account.ETHAddress);
+      let addressNonce = await getNonce(account.BNBAddress);
       let getGasLimit = await gasLimit({
         to: transactionOBJ.to,
         from: transactionOBJ.from,
@@ -130,10 +126,10 @@ export default function SendButton() {
       isLoading: true,
     });
     setIsTransanctionProgress(true);
-    // console.log("그럼 여기는?", transactionOBJ);
-    const Tx = await sendTransaction(transactionOBJ, account.ETHPrivateKey);
+
+    const Tx = await sendTransaction(transactionOBJ, account.BNBPrivateKey);
     setOpen(false);
-    // console.log(Tx);
+
     if (Tx) {
       setLoading({
         isLoading: false,
@@ -144,9 +140,6 @@ export default function SendButton() {
       handleClose();
     }
   };
-
-  // console.log("현재 트랜잭션 상태는? ", transactionOBJ);
-  // console.log("잘 바꼈을라나?", isTransaction);
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center", mt: "3%" }}>
@@ -159,10 +152,10 @@ export default function SendButton() {
           alt="sendMoneyImage"
         />
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>이더를 전송합니다.</DialogTitle>
+          <DialogTitle>바이낸스를 전송합니다.</DialogTitle>
           <DialogContent>
             <DialogContentText sx={{ mb: "5%" }}>
-              잔액 : {account.ETHBalance} ETH(Goerli)
+              잔액 : {account.BNBBalance} BNB(smart chain - test)
             </DialogContentText>
 
             {isError ? (

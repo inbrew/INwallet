@@ -7,49 +7,40 @@ import { Box, Typography } from "@mui/material";
 import { getBalance, getTxByAddress } from "../../api/ethereum";
 
 // recoil
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { addressState } from "../../recoil/address";
-import { loadingState } from "../../recoil/loading";
 import { txState } from "../../recoil/tx";
 
 export default function GetBalance() {
   const [account, setAccount] = useRecoilState(addressState);
-  const setStateLoading = useSetRecoilState(loadingState);
   const [amount, setAmount] = useState(0);
   const [tx, setTx] = useRecoilState(txState);
 
   const handleGetTxList = useCallback(async () => {
     const prevTx = await getTxByAddress(account.ETHAddress);
 
-    if (prevTx.length > tx.length && prevTx) {
-      setTx(prevTx);
+    if (prevTx.length > tx.ethTx.length) {
+      setTx({
+        ethTx: prevTx,
+      });
     }
-  }, [account.ETHAddress, setTx, tx.length]);
+  }, [account.ETHAddress, setTx, tx]);
 
   const handleGetBalance = useCallback(async () => {
-    setStateLoading({
-      isLoading: true,
-    });
-
     setAmount(await getBalance(account.ETHAddress));
-
-    setStateLoading({
-      isLoading: false,
-    });
 
     setAccount((prev) => ({
       ...prev,
       ETHBalance: amount,
     }));
-  }, [account.ETHAddress, setAccount, setStateLoading, amount]);
+  }, [account.ETHAddress, setAccount, amount]);
 
   useEffect(() => {
-    if (tx) {
-      handleGetBalance();
-
+    handleGetBalance();
+    if (tx.ethTx) {
       handleGetTxList();
     }
-  }, [handleGetBalance, tx, handleGetTxList]);
+  }, [handleGetBalance, tx.ethTx, handleGetTxList]);
 
   return (
     <Box>

@@ -36,8 +36,12 @@ export default function PrivateKeyToAccountButton() {
 
     if (address) {
       const transactions = await getTxByAddress(address);
+      console.log("없어?", transactions);
       if (transactions) {
-        setTxState(transactions);
+        setTxState((prev) => ({
+          ...prev,
+          ethTx: transactions,
+        }));
       }
 
       setStateAddress((prev) => ({
