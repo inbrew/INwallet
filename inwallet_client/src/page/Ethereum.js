@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 // recoil
@@ -18,19 +18,21 @@ import { createAddress } from "../api/ethereum";
 
 export default function Ethereum() {
   const [account, setAccount] = useRecoilState(addressState);
-  const [nonce, setNonce] = useState(0);
   const navigate = useNavigate();
 
+  // console.log("이더", account.ETHAddress.length);
+
   const handleClick = () => {
-    if (nonce === 0) {
+    if (account.ETHAddress.length === 0) {
       const createResult = createAddress();
-      setAccount((prev) => ({
-        ...prev,
-        [account.ETHAddress]: createResult.address,
-        [account.ETHPrivateKey]: createResult.privateKey,
-      }));
-      setNonce(1);
-      navigate("/INETH");
+      if (createResult) {
+        setAccount((prev) => ({
+          ...prev,
+          ETHAddress: createResult.address,
+          ETHPrivateKey: createResult.privateKey,
+        }));
+        navigate("/INETH");
+      }
     }
   };
 

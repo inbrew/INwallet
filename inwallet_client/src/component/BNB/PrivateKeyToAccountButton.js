@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 
 // api
-import { privateKeyToAccount, getTxByAddress } from "../../api/ethereum";
+import { privateKeyToAccount, getTxByAddress } from "../../api/binance";
 
 // recoil
 import { useSetRecoilState } from "recoil";
@@ -39,11 +39,11 @@ export default function PrivateKeyToAccountButton() {
       if (transactions) {
         setTxState(transactions);
       }
-
-      setStateAddress({
-        ETHAddress: address,
-        ETHPrivateKey: e.target.value,
-      });
+      setStateAddress((prev) => ({
+        ...prev,
+        BNBAddress: address,
+        BNBPrivateKey: e.target.value,
+      }));
       handleClose();
     }
   };

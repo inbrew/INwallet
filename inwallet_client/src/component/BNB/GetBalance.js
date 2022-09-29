@@ -4,7 +4,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Box, Typography } from "@mui/material";
 
 // api
-import { getBalance, getTxByAddress } from "../../api/ethereum";
+import { getBalance, getTxByAddress } from "../../api/binance";
 
 // recoil
 import { useRecoilState, useSetRecoilState } from "recoil";
@@ -19,19 +19,19 @@ export default function GetBalance() {
   const [tx, setTx] = useRecoilState(txState);
 
   const handleGetTxList = useCallback(async () => {
-    const prevTx = await getTxByAddress(account.ETHAddress);
+    const prevTx = await getTxByAddress(account.BNBAddress);
 
     if (prevTx.length > tx.length && prevTx) {
       setTx(prevTx);
     }
-  }, [account.ETHAddress, setTx, tx.length]);
+  }, [account.BNBAddress, setTx, tx.length]);
 
   const handleGetBalance = useCallback(async () => {
     setStateLoading({
       isLoading: true,
     });
 
-    setAmount(await getBalance(account.ETHAddress));
+    setAmount(await getBalance(account.BNBAddress));
 
     setStateLoading({
       isLoading: false,
@@ -39,9 +39,9 @@ export default function GetBalance() {
 
     setAccount((prev) => ({
       ...prev,
-      ETHBalance: amount,
+      BNBBalance: amount,
     }));
-  }, [account.ETHAddress, setAccount, setStateLoading, amount]);
+  }, [account.BNBAddress, setAccount, setStateLoading, amount]);
 
   useEffect(() => {
     if (tx) {
@@ -54,7 +54,7 @@ export default function GetBalance() {
   return (
     <Box>
       <Box sx={{ display: "flex", justifyContent: "center", mt: "5%" }}>
-        <Typography variant="h5">{amount} ETH(Goerli)</Typography>
+        <Typography variant="h5">{amount} BNB(smart chain - test)</Typography>
       </Box>
     </Box>
   );

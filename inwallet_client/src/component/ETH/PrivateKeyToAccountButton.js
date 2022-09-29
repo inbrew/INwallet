@@ -40,10 +40,11 @@ export default function PrivateKeyToAccountButton() {
         setTxState(transactions);
       }
 
-      setStateAddress({
+      setStateAddress((prev) => ({
+        ...prev,
         ETHAddress: address,
         ETHPrivateKey: e.target.value,
-      });
+      }));
       handleClose();
     }
   };

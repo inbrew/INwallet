@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 // 라이브러리(클립보드 복사)
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -14,13 +14,11 @@ import { addressState } from "../../recoil/address";
 // component
 import UserGetPrivatekey from "./UserGetPrivatekey";
 import GetBalance from "./GetBalance";
-import SendButton from "./SendButton";
-import TransactionList from "./TransactionList";
+// import SendButton from "./SendButton";
+// import TransactionList from "./TransactionList";
 
 export default function INEthereum() {
   const account = useRecoilValue(addressState);
-
-  useEffect(() => {}, [account]);
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -38,11 +36,11 @@ export default function INEthereum() {
         <TextField
           id="standard-read-only-input"
           label="Address"
-          defaultValue={account.ETHAddress}
+          defaultValue={account.BNBAddress}
           InputProps={{
             readOnly: true,
             endAdornment: (
-              <CopyToClipboard text={account.ETHAddress}>
+              <CopyToClipboard text={account.BNBAddress}>
                 <ContentCopyIcon sx={{ cursor: "pointer" }} />
               </CopyToClipboard>
             ),
@@ -52,7 +50,7 @@ export default function INEthereum() {
         />
         <UserGetPrivatekey />
         <GetBalance />
-        <SendButton />
+        {/* <SendButton /> */}
       </Box>
       <Box
         sx={{
@@ -71,7 +69,7 @@ export default function INEthereum() {
           <Typography variant="h5">거래 내역</Typography>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <TransactionList />
+          {/* <TransactionList /> */}
         </Box>
       </Box>
     </Box>

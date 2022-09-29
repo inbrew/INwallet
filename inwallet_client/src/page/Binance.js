@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 // MUI css
@@ -14,28 +14,31 @@ import { createAddress } from "../api/ethereum";
 // component
 import PrivateKeyToAccountButton from "../component/BNB/PrivateKeyToAccountButton";
 import ImageChanger from "../component/ImageChanger";
+import INBinance from "../component/BNB/INBinance";
 
 export default function Binance() {
   const [account, setAccount] = useRecoilState(addressState);
-  const [nonce, setNonce] = useState(0);
   const navigate = useNavigate();
 
   const handleClick = () => {
-    if (nonce === 0) {
+    if (account.BNBAddress.length === 0) {
       const createResult = createAddress();
       setAccount((prev) => ({
         ...prev,
-        [account.BNBAddress]: createResult.address,
-        [account.BNBPrivateKey]: createResult.privateKey,
+        BNBAddress: createResult.address,
+        BNBPrivateKey: createResult.privateKey,
       }));
-      setNonce(1);
-      navigate("/INETH");
+      navigate("/INBNB");
     }
   };
 
   return (
     <Box>
-      {account.BNBAddress ? null : ( // </Box> //   <INEthereum /> // <Box>
+      {account.BNBAddress ? (
+        <Box>
+          <INBinance />
+        </Box>
+      ) : (
         <Box
           sx={{
             display: "flex",

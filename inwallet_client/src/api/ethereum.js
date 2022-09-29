@@ -6,6 +6,11 @@ const key = {
   apikey: process.env.REACT_APP_BLOCKSDK_API_KEY,
 };
 
+const headers = {
+  "Content-Type": "application/json",
+  "Access-Control-Allow-Origin": "*",
+};
+
 // BlockSDK
 const BlockSdkApiKey = key.apikey;
 
@@ -104,18 +109,17 @@ module.exports = {
     return resultTx;
   },
 
+  // 주소로 거래내역 가져오기
   getTxByAddress: async (address) => {
-    // const getChainID = `/info?api_token=${BlockSdkApiKey}`;
-    const getAddressInfoAPI = `/address/${address}/info?api_token=${BlockSdkApiKey}&offset=0&limit=10&order_direction=desc`;
+    const getAddressInfoAPI = `/eth/address/${address}/info?api_token=${BlockSdkApiKey}&offset=0&limit=10&order_direction=desc`;
     const getTransactionByAddress = await axios
-      .get(getAddressInfoAPI)
+      .get(getAddressInfoAPI, headers)
       .then((res) => {
         return res.data.payload.transactions;
       })
       .catch((err) => {
         console.log("getTxByAddress에러", err);
       });
-
     return getTransactionByAddress;
   },
 
@@ -136,16 +140,7 @@ module.exports = {
         })
       );
     }
-    // console.log("getTransaction 함수에 들어온 result", result);
+
     return result;
-    // return await web3.eth.getTransaction(tx).then((data) => {
-    //   const result = {
-    //     ...data,
-    //     gas: web3.utils.fromWei(`${data.gas}`, "ether"),
-    //     gasPrice: web3.utils.fromWei(`${data.gasPrice}`, "ether"),
-    //     value: web3.utils.fromWei(`${data.value}`, "ether"),
-    //   };
-    //   return result;
-    // });
   },
 };

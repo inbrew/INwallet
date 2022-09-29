@@ -13,7 +13,9 @@ import OutWallet from "./component/OutWallet";
 import Main from "./page/Main";
 import Avalanche from "./page/Avalanche";
 import Binance from "./page/Binance";
+import INBinance from "./component/BNB/INBinance";
 import Ethereum from "./page/Ethereum";
+import INEthereum from "./component/ETH/INEthereum";
 import Harmony from "./page/Harmony";
 import Klaytn from "./page/Klaytn";
 import Polygon from "./page/Polygon";
@@ -34,7 +36,9 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/AVAX" element={<Avalanche />} />
         <Route path="/BNB" element={<Binance />} />
+        <Route path="/INBNB" element={<INBinance />} />
         <Route path="/ETH" element={<Ethereum />} />
+        <Route path="/INETH" element={<INEthereum />} />
         <Route path="/ONE" element={<Harmony />} />
         <Route path="/KLAY" element={<Klaytn />} />
         <Route path="/MATIC" element={<Polygon />} />
