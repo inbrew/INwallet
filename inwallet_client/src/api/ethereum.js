@@ -121,7 +121,6 @@ module.exports = {
 
   // 보낸 트랜잭션 거래내역 용으로 확인하기.
   getTransaction: async (tx) => {
-    console.log("getTransaction 함수에 들어온 tx", tx);
     let result = [];
 
     for (let i = 0; i < tx.length; i++) {
@@ -137,7 +136,7 @@ module.exports = {
         })
       );
     }
-
+    // console.log("getTransaction 함수에 들어온 result", result);
     return result;
     // return await web3.eth.getTransaction(tx).then((data) => {
     //   const result = {

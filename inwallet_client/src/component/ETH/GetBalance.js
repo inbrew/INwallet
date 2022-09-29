@@ -4,10 +4,10 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Box, Typography } from "@mui/material";
 
 // api
-import { getBalance } from "../../api/ethereum";
+import { getBalance, getTxByAddress } from "../../api/ethereum";
 
 // recoil
-import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { addressState } from "../../recoil/address";
 import { loadingState } from "../../recoil/loading";
 import { txState } from "../../recoil/tx";
@@ -16,7 +16,11 @@ export default function GetBalance() {
   const [account, setAccount] = useRecoilState(addressState);
   const setStateLoading = useSetRecoilState(loadingState);
   const [amount, setAmount] = useState(0);
-  const tx = useRecoilValue(txState);
+  const [tx, setTx] = useRecoilState(txState);
+
+  const handleGetTxList = useCallback(async () => {
+    await getTxByAddress(account.ETHAddress);
+  }, [account.ETHAddress]);
 
   const handleGetBalance = useCallback(async () => {
     setStateLoading({
@@ -37,7 +41,8 @@ export default function GetBalance() {
 
   useEffect(() => {
     handleGetBalance();
-  }, [handleGetBalance, tx]);
+    handleGetTxList();
+  }, [handleGetBalance, tx, handleGetTxList]);
 
   return (
     <Box>

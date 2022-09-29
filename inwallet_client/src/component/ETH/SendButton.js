@@ -111,7 +111,7 @@ export default function SendButton() {
         value: transactionOBJ.value,
       });
 
-      if (gasFee && addressNonce && getGasLimit) {
+      if (gasFee && getGasLimit) {
         setTransactionOBJ((prev) => ({
           ...prev,
           nonce: addressNonce,
@@ -128,6 +128,7 @@ export default function SendButton() {
       isLoading: true,
     });
     setIsTransanctionProgress(true);
+    // console.log("그럼 여기는?", transactionOBJ);
     const Tx = await sendTransaction(transactionOBJ, account.ETHPrivateKey);
     setOpen(false);
     // console.log(Tx);
