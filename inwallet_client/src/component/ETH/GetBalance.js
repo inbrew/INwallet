@@ -19,8 +19,12 @@ export default function GetBalance() {
   const [tx, setTx] = useRecoilState(txState);
 
   const handleGetTxList = useCallback(async () => {
-    await getTxByAddress(account.ETHAddress);
-  }, [account.ETHAddress]);
+    const prevTx = await getTxByAddress(account.ETHAddress);
+
+    if (prevTx.length > tx.length) {
+      setTx(prevTx);
+    }
+  }, [account.ETHAddress, setTx, tx.length]);
 
   const handleGetBalance = useCallback(async () => {
     setStateLoading({

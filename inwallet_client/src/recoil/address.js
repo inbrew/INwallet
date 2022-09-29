@@ -8,6 +8,8 @@ export const addressState = atom({
   default: {
     AVAXAddress: "",
     BNBAddress: "",
+    BNBPrivateKey: "",
+    BNBBalance: "",
     ETHAddress: "",
     ETHPrivateKey: "",
     ETHBalance: "",

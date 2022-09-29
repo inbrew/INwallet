@@ -11,6 +11,10 @@ import { chainState } from "../recoil/chain";
 import ethereum from "../image/ETH/ethereum.png";
 import INethereum from "../image/ETH/IN_ethereum.png";
 
+// BNB image
+import binance from "../image/BNB/binance.png";
+import INbinance from "../image/BNB/IN_binance.png";
+
 export default function ImageChanger() {
   const [hoverState, setHoverState] = useState(false);
   const nowChain = useRecoilValue(chainState);
@@ -21,6 +25,9 @@ export default function ImageChanger() {
   if (nowChain.SelectChain === "ETH") {
     nowImage = ethereum;
     nowHoverImage = INethereum;
+  } else if (nowChain.SelectChain === "BNB") {
+    nowImage = binance;
+    nowHoverImage = INbinance;
   }
 
   const handleHoverIn = () => {
