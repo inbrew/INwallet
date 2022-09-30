@@ -16,7 +16,6 @@ import UserGetPrivatekey from "./UserGetPrivatekey";
 import GetBalance from "./GetBalance";
 import SendButton from "./SendButton";
 import TransactionList from "./TransactionList";
-import TestButton from "../TestButton";
 
 export default function INKlaytn() {
   const account = useRecoilValue(addressState);
@@ -51,7 +50,6 @@ export default function INKlaytn() {
         <UserGetPrivatekey />
         <GetBalance />
         <SendButton />
-        <TestButton />
       </Box>
       <Box
         sx={{
