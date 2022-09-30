@@ -8,6 +8,7 @@ export const txState = atom({
   default: {
     ethTx: [],
     bnbTx: [],
+    klayTx: [],
   },
   effects_UNSTABLE: [persistAtom],
 });

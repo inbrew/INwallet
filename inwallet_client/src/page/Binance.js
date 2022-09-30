@@ -9,7 +9,7 @@ import { useRecoilState } from "recoil";
 import { addressState } from "../recoil/address";
 
 // api
-import { createAddress } from "../api/ethereum";
+import { createAddress } from "../api/binance";
 
 // component
 import PrivateKeyToAccountButton from "../component/BNB/PrivateKeyToAccountButton";

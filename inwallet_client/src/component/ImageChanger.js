@@ -15,6 +15,10 @@ import INethereum from "../image/ETH/IN_ethereum.png";
 import binance from "../image/BNB/binance.png";
 import INbinance from "../image/BNB/IN_binance.png";
 
+// KLAY image
+import klay from "../image/KLAY/klay.png";
+import INklay from "../image/KLAY/IN_klay.png";
+
 export default function ImageChanger() {
   const [hoverState, setHoverState] = useState(false);
   const nowChain = useRecoilValue(chainState);
@@ -28,6 +32,9 @@ export default function ImageChanger() {
   } else if (nowChain.SelectChain === "BNB") {
     nowImage = binance;
     nowHoverImage = INbinance;
+  } else if (nowChain.SelectChain === "KLAY") {
+    nowImage = klay;
+    nowHoverImage = INklay;
   }
 
   const handleHoverIn = () => {

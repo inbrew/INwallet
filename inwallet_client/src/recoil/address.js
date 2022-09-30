@@ -15,6 +15,8 @@ export const addressState = atom({
     ETHBalance: "",
     ONEAddress: "",
     KLAYAddress: "",
+    KLAYPrivateKey: "",
+    KLAYBalance: "",
     MATICAddress: "",
     STXAddress: "",
   },

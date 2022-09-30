@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 
 // api
-import { privateKeyToAccount, getTxByAddress } from "../../api/ethereum";
+import { privateKeyToAccount, getTxByAddress } from "../../api/klaytn";
 
 // recoil
 import { useSetRecoilState } from "recoil";
@@ -36,18 +36,16 @@ export default function PrivateKeyToAccountButton() {
 
     if (address) {
       const transactions = await getTxByAddress(address);
-
       if (transactions) {
         setTxState((prev) => ({
           ...prev,
-          ethTx: transactions,
+          klayTx: transactions,
         }));
       }
-
       setStateAddress((prev) => ({
         ...prev,
-        ETHAddress: address,
-        ETHPrivateKey: e.target.value,
+        KLAYAddress: address,
+        KLAYPrivateKey: e.target.value,
       }));
       handleClose();
     }

@@ -18,6 +18,7 @@ import Ethereum from "./page/Ethereum";
 import INEthereum from "./component/ETH/INEthereum";
 import Harmony from "./page/Harmony";
 import Klaytn from "./page/Klaytn";
+import INKlaytn from "./component/KLAY/INKlaytn";
 import Polygon from "./page/Polygon";
 import Stacks from "./page/Stacks";
 
@@ -41,6 +42,7 @@ function App() {
         <Route path="/INETH" element={<INEthereum />} />
         <Route path="/ONE" element={<Harmony />} />
         <Route path="/KLAY" element={<Klaytn />} />
+        <Route path="/INKLAY" element={<INKlaytn />} />
         <Route path="/MATIC" element={<Polygon />} />
         <Route path="/STX" element={<Stacks />} />
       </Routes>
