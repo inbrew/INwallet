@@ -53,9 +53,10 @@ export default function Klaytn() {
                 display: "flex",
                 justifyContent: "center",
                 flexDirection: "column",
-                border: 1,
+                border: 5,
                 width: "75%",
                 padding: "5%",
+                borderRadius: "3%",
               }}
             >
               <Box onClick={handleClick}>

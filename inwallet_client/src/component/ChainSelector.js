@@ -30,13 +30,13 @@ export default function ChainSelector() {
             label="Chain"
             onChange={handleClick}
           >
-            <MenuItem value={"AVAX"}>Avalanche(AVAX)</MenuItem>
+            {/* <MenuItem value={"AVAX"}>Avalanche(AVAX)</MenuItem> */}
             <MenuItem value={"BNB"}>Binance(BNB)</MenuItem>
             <MenuItem value={"ETH"}>Ethereum(ETH)</MenuItem>
-            <MenuItem value={"ONE"}>Harmony(ONE)</MenuItem>
+            {/* <MenuItem value={"ONE"}>Harmony(ONE)</MenuItem> */}
             <MenuItem value={"KLAY"}>Klaytn(KLAY)</MenuItem>
-            <MenuItem value={"MATIC"}>Polygon(MATIC)</MenuItem>
-            <MenuItem value={"STX"}>Stacks(STX)</MenuItem>
+            {/* <MenuItem value={"MATIC"}>Polygon(MATIC)</MenuItem> */}
+            {/* <MenuItem value={"STX"}>Stacks(STX)</MenuItem> */}
           </Select>
         </FormControl>
       </Box>
