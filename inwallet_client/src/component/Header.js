@@ -20,7 +20,7 @@ export default function Header() {
       sx={{
         display: "flex",
         justifyContent: "center",
-        mb: "5%",
+        mb: "1%",
         cursor: "pointer",
       }}
     >

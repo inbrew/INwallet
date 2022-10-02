@@ -44,7 +44,7 @@ export default function Main() {
               justifyContent: "center",
               flexDirection: "column",
               border: 5,
-              width: "50%",
+              width: 400,
               padding: "5%",
               borderRadius: "3%",
             }}

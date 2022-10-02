@@ -7,6 +7,10 @@ import {
   ListItemText,
   Typography,
   Divider,
+  Dialog,
+  DialogTitle,
+  List,
+  DialogActions,
 } from "@mui/material";
 
 // recoil
@@ -17,15 +21,22 @@ import { loadingState } from "../../recoil/loading";
 // api
 import { getTransaction } from "../../api/binance";
 
-// component
-// import DialogTransaction from "./DialogTransaction";
-
 export default function TransactionListItem() {
   const transactions = useRecoilValue(txState);
   const setLoading = useSetRecoilState(loadingState);
   const [addNewTransaction, setAddNewTransaction] = useState({
     tx: [],
   });
+  const [modalData, setModalData] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const renderTransaction = useCallback(
     (txs) => {
@@ -86,8 +97,13 @@ export default function TransactionListItem() {
       ) : (
         <Box>
           {addNewTransaction.tx.map((el) => (
-            <Box key={`Box ${el.transactionIndex}`}>
-              <ListItem alignItems="flex-start" key={el.transactionIndex}>
+            <Box key={`Box ${el.transactionIndex}`} onClick={handleClickOpen}>
+              <ListItem
+                alignItems="flex-start"
+                key={el.transactionIndex}
+                onClick={() => setModalData(el)}
+                sx={{ cursor: "pointer" }}
+              >
                 <ListItemText
                   primary={`To: ${el.to}`}
                   secondary={
@@ -108,7 +124,44 @@ export default function TransactionListItem() {
               <Divider key={`Divider ${el.transactionIndex}`} />
             </Box>
           ))}
-          {/* <DialogTransaction el={el} key={i} /> */}
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>트랜잭션 영수증</DialogTitle>
+            <List sx={{ pt: 0 }}>
+              <ListItem
+                autoFocus
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                }}
+              >
+                <Typography variant="h6" sx={{ mt: "10px" }}>
+                  Transaction Hash
+                </Typography>
+                {modalData ? modalData.hash : null}
+                <Typography variant="h6" sx={{ mt: "10px" }}>
+                  Block Number
+                </Typography>
+                {modalData ? modalData.blockNumber : null}
+                <Typography variant="h6" sx={{ mt: "10px" }}>
+                  From (보낸 주소)
+                </Typography>
+                {modalData ? modalData.from : null}
+                <Typography variant="h6" sx={{ mt: "10px" }}>
+                  To (받는 주소)
+                </Typography>
+                {modalData ? modalData.to : null}
+                <Typography variant="h6" sx={{ mt: "10px" }}>
+                  거래 수수료(Gas Price)
+                </Typography>
+                {modalData ? modalData.gasPrice : null} BNB(smart chain - test)
+                <Typography variant="h6" sx={{ mt: "10px" }}>
+                  거래 가격(Value)
+                </Typography>
+                {modalData ? modalData.value : null} BNB(smart chain - test)
+              </ListItem>
+            </List>
+          </Dialog>
         </Box>
       )}
     </Box>

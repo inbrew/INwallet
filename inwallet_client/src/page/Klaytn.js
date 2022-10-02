@@ -54,7 +54,7 @@ export default function Klaytn() {
                 justifyContent: "center",
                 flexDirection: "column",
                 border: 5,
-                width: "75%",
+                width: 400,
                 padding: "5%",
                 borderRadius: "3%",
               }}

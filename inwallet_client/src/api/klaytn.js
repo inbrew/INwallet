@@ -76,6 +76,7 @@ module.exports = {
           .then((data) => {
             const result = {
               ...data,
+              blockNumber: Number(caver.utils.hexToNumberString(data.gas)),
               gas: caver.utils.convertFromPeb(
                 Number(caver.utils.hexToNumberString(data.gas))
               ),
