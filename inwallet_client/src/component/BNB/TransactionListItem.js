@@ -19,7 +19,7 @@ import { txState } from "../../recoil/tx";
 import { loadingState } from "../../recoil/loading";
 
 // api
-import { getTransaction } from "../../api/binance";
+const { getTransaction } = require("../../api/binance");
 
 export default function TransactionListItem() {
   const transactions = useRecoilValue(txState);

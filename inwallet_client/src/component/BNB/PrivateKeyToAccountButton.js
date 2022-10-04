@@ -10,13 +10,12 @@ import {
   DialogTitle,
 } from "@mui/material";
 
-// api
-import { privateKeyToAccount, getTxByAddress } from "../../api/binance";
-
 // recoil
 import { useSetRecoilState } from "recoil";
 import { addressState } from "../../recoil/address";
 import { txState } from "../../recoil/tx";
+// api
+const { privateKeyToAccount, getTxByAddress } = require("../../api/binance");
 
 export default function PrivateKeyToAccountButton() {
   const [open, setOpen] = useState(false);

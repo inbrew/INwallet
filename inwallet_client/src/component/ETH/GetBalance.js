@@ -3,13 +3,12 @@ import React, { useEffect, useState, useCallback } from "react";
 // MUI css
 import { Box, Typography } from "@mui/material";
 
-// api
-import { getBalance, getTxByAddress } from "../../api/ethereum";
-
 // recoil
 import { useRecoilState } from "recoil";
 import { addressState } from "../../recoil/address";
 import { txState } from "../../recoil/tx";
+// api
+const { getBalance, getTxByAddress } = require("../../api/ethereum");
 
 export default function GetBalance() {
   const [account, setAccount] = useRecoilState(addressState);

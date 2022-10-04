@@ -19,7 +19,7 @@ import { txState } from "../../recoil/tx";
 import { loadingState } from "../../recoil/loading";
 
 // api
-import { getTransactionReceipt } from "../../api/klaytn";
+const { getTransactionReceipt } = require("../../api/klaytn");
 
 export default function TransactionListItem() {
   const transactions = useRecoilValue(txState);

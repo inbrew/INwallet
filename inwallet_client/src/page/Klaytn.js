@@ -8,14 +8,14 @@ import { Box } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { addressState } from "../recoil/address";
 
-// api
-import { createAddress } from "../api/klaytn";
-
 // component
 import PrivateKeyToAccountButton from "../component/KLAY/PrivateKeyToAccountButton";
 import ImageChanger from "../component/ImageChanger";
 import INKlaytn from "../component/KLAY/INKlaytn";
 // import TestButton from "../component/TestButton";
+
+// api
+const { createAddress } = require("../api/klaytn");
 
 export default function Klaytn() {
   const [account, setAccount] = useRecoilState(addressState);

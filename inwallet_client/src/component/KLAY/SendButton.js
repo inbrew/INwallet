@@ -23,7 +23,11 @@ import { addressState } from "../../recoil/address";
 import { txState } from "../../recoil/tx";
 
 // api
-import { isAddress, estimateGas, sendRawTransaction } from "../../api/klaytn";
+const {
+  isAddress,
+  estimateGas,
+  sendRawTransaction,
+} = require("../../api/klaytn");
 
 export default function SendButton() {
   const [open, setOpen] = useState(false);

@@ -10,13 +10,12 @@ import {
   DialogTitle,
 } from "@mui/material";
 
-// api
-import { privateKeyToAccount, getTxByAddress } from "../../api/ethereum";
-
 // recoil
 import { useSetRecoilState } from "recoil";
 import { addressState } from "../../recoil/address";
 import { txState } from "../../recoil/tx";
+// api
+const { privateKeyToAccount, getTxByAddress } = require("../../api/ethereum");
 
 export default function PrivateKeyToAccountButton() {
   const [open, setOpen] = useState(false);

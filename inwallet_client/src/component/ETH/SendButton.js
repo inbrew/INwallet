@@ -23,13 +23,13 @@ import { addressState } from "../../recoil/address";
 import { txState } from "../../recoil/tx";
 
 // api
-import {
+const {
   isAddress,
   getGasPrice,
   sendTransaction,
   getNonce,
   gasLimit,
-} from "../../api/ethereum";
+} = require("../../api/ethereum");
 
 export default function SendButton() {
   const [open, setOpen] = useState(false);

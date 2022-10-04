@@ -14,7 +14,7 @@ import PrivateKeyToAccountButton from "../component/ETH/PrivateKeyToAccountButto
 import INEthereum from "../component/ETH/INEthereum";
 
 // api
-import { createAddress } from "../api/ethereum";
+const { createAddress } = require("../api/ethereum");
 
 export default function Ethereum() {
   const [account, setAccount] = useRecoilState(addressState);
