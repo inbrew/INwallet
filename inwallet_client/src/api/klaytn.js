@@ -5,14 +5,6 @@ const caver = new Caver("https://api.baobab.klaytn.net:8651/");
 const axios = require("axios");
 axios.defaults.withCredentials = true;
 
-// .env
-const key = {
-  apikey: process.env.REACT_APP_BLOCKSDK_API_KEY,
-};
-
-// BlockSDK
-const BlockSdkApiKey = key.apikey;
-
 // 계정 생성
 export async function createAddress() {
   const keyring = await caver.wallet.keyring.generate();
@@ -39,20 +31,6 @@ export async function estimateGas(address) {
     .catch((err) => {
       console.log(err);
     });
-}
-
-// 주소로 트랜잭션 조회
-export async function getTxByAddress(address) {
-  const getAddressInfoAPI = `/klay/address/${address}/info?api_token=${BlockSdkApiKey}&offset=0&limit=10&order_direction=desc`;
-  const getTransactionByAddress = await axios
-    .get(getAddressInfoAPI)
-    .then((res) => {
-      return res.data.payload.transactions;
-    })
-    .catch((err) => {
-      console.log("getTxByAddress에러", err);
-    });
-  return getTransactionByAddress;
 }
 
 // 주소 확인

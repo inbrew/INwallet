@@ -4,25 +4,30 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Box, Typography } from "@mui/material";
 
 // api
-import { getBalance, getTxByAddress } from "../../api/klaytn";
+import { getBalance } from "../../api/klaytn";
+import { getTxByAddress } from "../../api/common";
 
 // recoil
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { addressState } from "../../recoil/address";
 import { txState } from "../../recoil/tx";
+import { chainState } from "../../recoil/chain";
 
 export default function GetBalance() {
   const [account, setAccount] = useRecoilState(addressState);
   const [amount, setAmount] = useState(0);
   const [tx, setTx] = useRecoilState(txState);
+  const chain = useRecoilValue(chainState);
 
   const handleGetTxList = useCallback(async () => {
-    const prevTx = await getTxByAddress(account.KLAYAddress);
+    const prevTx = await getTxByAddress(account.KLAYAddress, chain.SelectChain);
 
-    if (tx.klayTx.length < prevTx.length) {
-      setTx({
-        klayTx: prevTx,
-      });
+    if (prevTx) {
+      if (tx.klayTx.length < prevTx.length) {
+        setTx({
+          klayTx: prevTx,
+        });
+      }
     }
   }, [account.KLAYAddress, setTx, tx]);
 

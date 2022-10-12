@@ -6,14 +6,6 @@ const Web3 = require("web3");
 const rpcURL = "https://data-seed-prebsc-1-s1.binance.org:8545/";
 const web3 = new Web3(rpcURL);
 
-// .env
-const key = {
-  apikey: process.env.REACT_APP_BLOCKSDK_API_KEY,
-};
-
-// BlockSDK
-const BlockSdkApiKey = key.apikey;
-
 // 바이낸스 주소 생성
 export function createAddress() {
   return web3.eth.accounts.create();
@@ -49,20 +41,6 @@ export async function getGasPrice() {
       console.log(err);
     });
   return gasPrice;
-}
-
-// 주소로 트랜잭션 조회
-export async function getTxByAddress(address) {
-  const getAddressInfoAPI = `/bsc/address/${address}/info?api_token=${BlockSdkApiKey}&offset=0&limit=10&order_direction=desc`;
-  const getTransactionByAddress = await axios
-    .get(getAddressInfoAPI)
-    .then((res) => {
-      return res.data.payload.transactions;
-    })
-    .catch((err) => {
-      console.log("getTxByAddress에러", err);
-    });
-  return getTransactionByAddress;
 }
 
 // 바이낸스 보내기

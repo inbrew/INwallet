@@ -22,9 +22,7 @@ export default function OutWallet() {
 
   const handleOut = () => {
     outAddress();
-
     outChain();
-
     outLoading();
     outTx();
     console.log("초기화됨");

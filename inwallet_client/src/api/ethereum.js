@@ -1,18 +1,10 @@
 const axios = require("axios");
 axios.defaults.withCredentials = true;
 
-// .env
-const key = {
-  apikey: process.env.REACT_APP_BLOCKSDK_API_KEY,
-};
-
 const headers = {
   "Content-Type": "application/json",
   "Access-Control-Allow-Origin": "*",
 };
-
-// BlockSDK
-const BlockSdkApiKey = key.apikey;
 
 // web3.js
 const Web3 = require("web3");
@@ -106,20 +98,6 @@ export async function sendTransaction(transactionOBJ, privateKey) {
   );
 
   return resultTx;
-}
-
-// 주소로 거래내역 가져오기
-export async function getTxByAddress(address) {
-  const getAddressInfoAPI = `/eth/address/${address}/info?api_token=${BlockSdkApiKey}&offset=0&limit=10&order_direction=desc`;
-  const getTransactionByAddress = await axios
-    .get(getAddressInfoAPI, headers)
-    .then((res) => {
-      return res.data.payload.transactions;
-    })
-    .catch((err) => {
-      console.log("getTxByAddress에러", err);
-    });
-  return getTransactionByAddress;
 }
 
 // 보낸 트랜잭션 거래내역 용으로 확인하기.

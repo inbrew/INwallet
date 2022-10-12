@@ -11,17 +11,20 @@ import {
 } from "@mui/material";
 
 // api
-import { privateKeyToAccount, getTxByAddress } from "../../api/ethereum";
+import { privateKeyToAccount } from "../../api/ethereum";
+import { getTxByAddress } from "../../api/common";
 
 // recoil
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 import { addressState } from "../../recoil/address";
 import { txState } from "../../recoil/tx";
+import { chainState } from "../../recoil/chain";
 
 export default function PrivateKeyToAccountButton() {
   const [open, setOpen] = useState(false);
   const setStateAddress = useSetRecoilState(addressState);
   const setTxState = useSetRecoilState(txState);
+  const chain = useRecoilValue(chainState);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -35,7 +38,7 @@ export default function PrivateKeyToAccountButton() {
     const address = await privateKeyToAccount(e.target.value);
 
     if (address) {
-      const transactions = await getTxByAddress(address);
+      const transactions = await getTxByAddress(address, chain.SelectChain);
 
       if (transactions) {
         setTxState((prev) => ({
