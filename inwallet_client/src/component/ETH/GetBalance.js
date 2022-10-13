@@ -24,9 +24,10 @@ export default function GetBalance() {
 
     if (prevTx) {
       if (prevTx.length > tx.ethTx.length) {
-        setTx({
+        setTx((prev) => ({
+          ...prev,
           ethTx: prevTx,
-        });
+        }));
       }
     }
   }, [account.ETHAddress, setTx, tx]);

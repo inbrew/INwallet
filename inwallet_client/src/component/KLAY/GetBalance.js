@@ -24,9 +24,10 @@ export default function GetBalance() {
 
     if (prevTx) {
       if (tx.klayTx.length < prevTx.length) {
-        setTx({
+        setTx((prev) => ({
+          ...prev,
           klayTx: prevTx,
-        });
+        }));
       }
     }
   }, [account.KLAYAddress, setTx, tx]);

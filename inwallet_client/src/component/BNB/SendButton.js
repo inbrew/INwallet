@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import sendMoneyImage from "../../image/sendMoney.png";
 
 // MUI css
@@ -17,10 +17,11 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { green } from "@mui/material/colors";
 
 // recoil
-import { useSetRecoilState, useRecoilValue } from "recoil";
+import { useSetRecoilState, useRecoilValue, useRecoilState } from "recoil";
 import { loadingState } from "../../recoil/loading";
 import { addressState } from "../../recoil/address";
 import { txState } from "../../recoil/tx";
+import { chainState } from "../../recoil/chain";
 
 // api
 import {
@@ -30,12 +31,13 @@ import {
   getNonce,
   gasLimit,
 } from "../../api/binance";
+import { getTxByAddress } from "../../api/common";
 
 export default function SendButton() {
   const [open, setOpen] = useState(false);
   const [isCheck, setIsCheck] = useState(false);
   const [isError, setIsError] = useState(false);
-  const account = useRecoilValue(addressState);
+  const [account, setAccount] = useRecoilState(addressState);
   const setLoading = useSetRecoilState(loadingState);
   let isValidAddress;
   const [transactionOBJ, setTransactionOBJ] = useState({
@@ -48,7 +50,8 @@ export default function SendButton() {
   });
   const [isErrorValue, setIsErrorValue] = useState(false);
   const [isTransanctionProgress, setIsTransanctionProgress] = useState(false);
-  const setTxState = useSetRecoilState(txState);
+  const [nowTx, setTx] = useRecoilState(txState);
+  const chain = useRecoilValue(chainState);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -134,12 +137,21 @@ export default function SendButton() {
       setLoading({
         isLoading: false,
       });
-      setTxState({
-        tx: Tx,
-      });
+      handleGetTxList();
       handleClose();
     }
   };
+
+  const handleGetTxList = useCallback(async () => {
+    const prevTx = await getTxByAddress(account.BNBAddress, chain.SelectChain);
+    // console.log("api로 불러온 tx들", prevTx);
+    if (prevTx) {
+      setTx((prev) => ({
+        ...prev,
+        bnbTx: prevTx,
+      }));
+    }
+  }, [account.BNBAddress, setTx, nowTx]);
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center", mt: "3%" }}>

@@ -24,9 +24,10 @@ export default function GetBalance() {
 
     if (prevTx) {
       if (tx.bnbTx.length < prevTx.length) {
-        setTx({
+        setTx((prev) => ({
+          ...prev,
           bnbTx: prevTx,
-        });
+        }));
       }
     }
   }, [account.BNBAddress, setTx, tx]);
