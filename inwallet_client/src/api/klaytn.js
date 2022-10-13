@@ -89,6 +89,6 @@ export async function sendRawTransaction(rawData, key) {
   const signed = await caver.wallet.sign(keyring.address, vt);
 
   const receipt = await caver.rpc.klay.sendRawTransaction(signed);
-  console.log("클레이튼api", receipt);
+  // console.log("클레이튼api", receipt);
   return receipt;
 }
