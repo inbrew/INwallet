@@ -2,9 +2,10 @@ const axios = require("axios");
 axios.defaults.withCredentials = true;
 // axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
 
+const { apikey } = require("../config/config");
+
 module.exports = {
   getTxByAddress: async (req, res) => {
-    const { apikey } = require("../config/config");
     const address = req.query.address;
     let chain = "";
     let status = 0;
