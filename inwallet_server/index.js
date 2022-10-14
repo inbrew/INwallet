@@ -6,7 +6,7 @@ const PORT = 4000;
 
 app.use(
   cors({
-    origin: true,
+    origin: ["https://inwallet.ml"],
     credentials: true,
     methods: ["GET", "PUT", "POST", "OPTIONS"],
   })
