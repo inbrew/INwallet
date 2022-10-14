@@ -26,7 +26,7 @@ module.exports = {
         return tx.data.payload.transactions;
       })
       .catch((err) => {
-        console.log("에러는?", err.response.data);
+        console.log("에러는?", err.response);
         status = err.response.status;
         return err;
       });
@@ -34,6 +34,6 @@ module.exports = {
     // if (status === 200) {
     //   res.status(status).json(transactions);
     // }
-    res.status(401).json(transactions);
+    res.status(status).json(transactions);
   },
 };
