@@ -8,6 +8,7 @@ app.use(
   cors({
     // 로컬에서만 사용(origin)
     // origin: true,
+    origin: ["https://inwallet.ml"],
     credentials: true,
     methods: ["GET", "PUT", "POST", "OPTIONS"],
   })
