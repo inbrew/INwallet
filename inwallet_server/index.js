@@ -6,6 +6,7 @@ const PORT = 4000;
 
 app.use(
   cors({
+    origin: true,
     credentials: true,
     methods: ["GET", "PUT", "POST", "OPTIONS"],
   })

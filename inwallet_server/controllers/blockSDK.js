@@ -35,6 +35,6 @@ module.exports = {
       res.status(status).json(transactions);
     }
 
-    res.status(status).json(transactions);
+    // res.status(status).json(transactions);
   },
 };
