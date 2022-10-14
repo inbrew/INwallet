@@ -21,6 +21,14 @@ app.get("/", (req, res) => {
   res.send("This is IN server!");
 });
 
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send({
+    message: "Internal Server Error",
+    stacktrace: err.toString(),
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`우리 서버 ${PORT}에서 도는 중, 화이팅!`);
 });
