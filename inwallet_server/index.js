@@ -6,7 +6,8 @@ const PORT = 4000;
 
 app.use(
   cors({
-    origin: true,
+    // 로컬에서만 사용(origin)
+    // origin: true,
     credentials: true,
     methods: ["GET", "PUT", "POST", "OPTIONS"],
   })

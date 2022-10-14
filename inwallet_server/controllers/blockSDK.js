@@ -34,6 +34,6 @@ module.exports = {
     // if (status === 200) {
     //   res.status(status).json(transactions);
     // }
-    res.status(status).json(transactions);
+    res.status(401).json(transactions);
   },
 };
