@@ -14,6 +14,8 @@ app.use(
       "*",
     ],
     credentials: true,
+    SameSite: "none",
+    Secure: true,
   })
 );
 app.use(express.json());
