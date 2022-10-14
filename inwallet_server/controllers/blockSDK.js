@@ -26,6 +26,7 @@ module.exports = {
         return tx.data.payload.transactions;
       })
       .catch((err) => {
+        console.log("에러는?", err);
         return err;
       });
 
