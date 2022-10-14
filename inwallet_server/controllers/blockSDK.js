@@ -26,12 +26,15 @@ module.exports = {
         return tx.data.payload.transactions;
       })
       .catch((err) => {
-        console.log("에러는?", err.data.error);
+        console.log("에러는?", err.response.data.error);
+        status = err.response.status;
         return err;
       });
 
     if (status === 200) {
       res.status(status).json(transactions);
     }
+
+    res.status(status).json(transactions);
   },
 };
