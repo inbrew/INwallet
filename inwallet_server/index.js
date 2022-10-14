@@ -4,17 +4,7 @@ const cookieParser = require("cookie-parser");
 const app = express();
 const PORT = 4000;
 
-app.use(
-  cors({
-    origin: [
-      "https://localhost:3000",
-      "http://inwallet.ml.s3-website.ap-northeast-2.amazonaws.com/",
-      "https://inwallet.ml",
-    ],
-    credentials: true,
-    methods: ["GET", "POST"],
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
