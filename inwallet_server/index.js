@@ -22,17 +22,6 @@ app.use(cookieParser());
 const wallet = require("./routes/wallet");
 app.use("/wallet", wallet);
 
-app.all(
-  "/*",
-  (req,
-  res,
-  (next) => {
-    res.header("Access-Control-Aloow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    next();
-  })
-);
-
 app.get("/", (req, res) => {
   res.send("This is IN server!");
 });
