@@ -1,5 +1,5 @@
 const axios = require("axios");
-// axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true;
 // axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
 
 const { apikey } = require("../config/config");
