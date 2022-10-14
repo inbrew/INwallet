@@ -7,16 +7,17 @@ const PORT = 4000;
 // route
 const wallet = require("./routes/wallet");
 
-app.use(
-  cors({
-    origin: [
-      "https://localhost:3000",
-      "http://inwallet.ml.s3-website.ap-northeast-2.amazonaws.com/",
-      "https://inwallet.ml",
-    ],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: [
+//       "https://localhost:3000",
+//       "http://inwallet.ml.s3-website.ap-northeast-2.amazonaws.com/",
+//       "https://inwallet.ml",
+//     ],
+//     credentials: true,
+//   })
+// );
+app.use(cors());
 app.use(express.json());
 
 app.use("/wallet", wallet);
