@@ -1,5 +1,5 @@
 # INwallet
-현재 기능
+현재 기능 가능한 체인 : 이더리움(Goerli), 바이낸스(Smart - test), 클레이튼(Baobab)
 
 <br />
 
