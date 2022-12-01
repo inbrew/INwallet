@@ -3,13 +3,21 @@ const HDWalletProvider = require("@truffle/hdwallet-provider");
 
 const address = process.env.ADDRESS;
 const privateKey = process.env.PRIVATE_KEY;
+const polygonTestNetRpcURL = process.env.RPC_URL;
 
 module.exports = {
   networks: {
     ganache: {
-      host: "127.0.0.1", // Localhost (default: none)
-      port: 8545, // Standard Ethereum port (default: none)
-      network_id: "*", // Any network (default: none)
+      host: "127.0.0.1",
+      port: 8545,
+      network_id: "*",
+    },
+    polygonTest: {
+      provider: () => new HDWalletProvider(privateKey, polygonTestNetRpcURL),
+      network_id: 80001,
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skipDryRun: true,
     },
   },
 
