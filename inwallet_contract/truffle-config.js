@@ -1,9 +1,9 @@
-require("dotenv").config();
 const HDWalletProvider = require("@truffle/hdwallet-provider");
-
-const address = process.env.ADDRESS;
-const privateKey = process.env.PRIVATE_KEY;
-const polygonTestNetRpcURL = process.env.RPC_URL;
+const {
+  address,
+  privateKey,
+  polygonTestNetRpcURL,
+} = require("./data/util/env-config");
 
 module.exports = {
   networks: {
@@ -25,7 +25,7 @@ module.exports = {
 
   compilers: {
     solc: {
-      version: "0.8.17",
+      version: "0.8.4",
       settings: {
         optimizer: {
           enabled: true,
