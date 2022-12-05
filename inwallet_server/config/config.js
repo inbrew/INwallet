@@ -1,6 +1,4 @@
-const dotenv = require("dotenv");
-
-dotenv.config();
+require("dotenv").config();
 
 // DB config
 module.exports = {
