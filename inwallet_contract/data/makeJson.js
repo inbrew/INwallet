@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const { basePath } = require("./basePath");
 
+// json 만들어주는 함수(makeFile, makeData)
 const makeFile = async (location, destination, address) => {
   const json = await fs.readFileSync(path.join(base, location), {
     encoding: "utf-8",
@@ -19,7 +20,16 @@ const makeData = (json, address) => {
   });
 };
 
+// const makeInProxy = async (address) => {
+//   makeFile();
+// };
+
+// const makeInProxyData = async (address) => {
+//   makeFile("");
+// };
+
 module.exports = {
   makeFile,
   makeData,
+  // makeInProxy
 };

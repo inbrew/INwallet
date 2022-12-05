@@ -3,7 +3,7 @@ const {
   address,
   privateKey,
   polygonTestNetRpcURL,
-} = require("./data/util/env-config");
+} = require("./data/ABI/env-config");
 
 module.exports = {
   networks: {
