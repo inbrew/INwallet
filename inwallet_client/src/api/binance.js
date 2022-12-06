@@ -3,7 +3,7 @@ axios.defaults.withCredentials = true;
 
 // web3.js
 const Web3 = require("web3");
-const rpcURL = "https://data-seed-prebsc-1-s1.binance.org:8545/";
+const rpcURL = "https://bsc-testnet.public.blastapi.io";
 const web3 = new Web3(rpcURL);
 
 // 바이낸스 주소 생성
@@ -21,7 +21,24 @@ export async function getBalance(address) {
     return data;
   });
   const convertBalance = await web3.utils.fromWei(`${balance}`, "ether");
+  let floorBalance;
+  let decimal;
+  let sliceIndex = 0;
+  const arrayBalance = convertBalance.split("");
 
+  for (let i = 0; i < arrayBalance.length; i++) {
+    if (arrayBalance[i] === ".") {
+      sliceIndex = i;
+      break;
+    }
+  }
+
+  decimal = convertBalance.slice(sliceIndex + 1);
+
+  if (decimal.length > 4) {
+    floorBalance = Number(convertBalance).toFixed(4);
+    return floorBalance;
+  }
   return convertBalance;
 }
 

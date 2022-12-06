@@ -27,6 +27,24 @@ export async function getBalance(address) {
     return data;
   });
   const convertBalance = await web3.utils.fromWei(`${balance}`, "ether");
+  let floorBalance;
+  let decimal;
+  let sliceIndex = 0;
+  const arrayBalance = convertBalance.split("");
+
+  for (let i = 0; i < arrayBalance.length; i++) {
+    if (arrayBalance[i] === ".") {
+      sliceIndex = i;
+      break;
+    }
+  }
+
+  decimal = convertBalance.slice(sliceIndex + 1);
+
+  if (decimal.length > 4) {
+    floorBalance = Number(convertBalance).toFixed(4);
+    return floorBalance;
+  }
 
   return convertBalance;
 }

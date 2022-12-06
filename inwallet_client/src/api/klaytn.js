@@ -14,11 +14,34 @@ export async function createAddress() {
 }
 
 // 잔액 조회
-export function getBalance(address) {
-  return caver.rpc.klay.getBalance(address).then((data) => {
-    const peb = caver.utils.hexToNumberString(data);
-    return caver.utils.convertFromPeb(Number(peb));
-  });
+export async function getBalance(address) {
+  const balance = await caver.rpc.klay
+    .getBalance(address)
+    .then(async (data) => {
+      const peb = await caver.utils.hexToNumberString(data);
+      return caver.utils.convertFromPeb(Number(peb));
+    });
+
+  let floorBalance;
+  let decimal;
+  let sliceIndex = 0;
+  const arrayBalance = balance.split("");
+
+  for (let i = 0; i < arrayBalance.length; i++) {
+    if (arrayBalance[i] === ".") {
+      sliceIndex = i;
+      break;
+    }
+  }
+
+  decimal = balance.slice(sliceIndex + 1);
+
+  if (decimal.length > 4) {
+    floorBalance = Number(balance).toFixed(4);
+    return floorBalance;
+  }
+
+  return balance;
 }
 
 // 트랜잭션 실행에 필요한 가스
