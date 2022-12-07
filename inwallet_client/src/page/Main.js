@@ -106,7 +106,7 @@ export default function Main() {
                         alt="polygon"
                       />
                     </ListItemIcon>
-                    <ListItemText primary="polygon - Mumbai" />
+                    <ListItemText primary="Polygon - Mumbai" />
                   </ListItem>
                 </List>
               </Box>
