@@ -1,14 +1,9 @@
-const axios = require("axios");
-axios.defaults.withCredentials = true;
-
-const headers = {
-  "Content-Type": "application/json",
-  "Access-Control-Allow-Origin": "*",
-};
+// config
+const config = require("../config/config");
 
 // web3.js
 const Web3 = require("web3");
-const rpcURL = "https://goerli.infura.io/v3/fa408e18052a47b18c82a59f8b54c1c6";
+const rpcURL = config.ethereum.rpcURL;
 const web3 = new Web3(rpcURL);
 
 // 이더리움 주소 생성

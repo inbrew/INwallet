@@ -1,9 +1,10 @@
+// config
+const config = require("../config/config");
+const rpcURL = config.klaytn.rpcURL;
+
 // caver-js
 const Caver = require("caver-js");
-const caver = new Caver("https://api.baobab.klaytn.net:8651/");
-
-const axios = require("axios");
-axios.defaults.withCredentials = true;
+const caver = new Caver(rpcURL);
 
 // 계정 생성
 export async function createAddress() {
