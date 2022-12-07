@@ -4,6 +4,9 @@ import { Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { chainState } from "../recoil/chain";
 
+// web3
+import { whichChain } from "../api/web3";
+
 export default function ChainSelector() {
   const navigate = useNavigate();
   const [chain, setChain] = useRecoilState(chainState);
@@ -12,6 +15,7 @@ export default function ChainSelector() {
     setChain({
       SelectChain: e.target.value,
     });
+    whichChain(e.target.value);
   };
 
   useEffect(() => {

@@ -3,8 +3,23 @@ const config = require("../config/config");
 
 // web3.js
 const Web3 = require("web3");
-const rpcURL = config.binance.rpcURL;
+let rpcURL;
 const web3 = new Web3(rpcURL);
+
+// web3-js를 사용하는 체인만 스위칭
+export function whichChain(chain) {
+  switch (chain) {
+    case "BNB":
+      rpcURL = config.binance.rpcURL;
+      break;
+    case "ETH":
+      rpcURL = config.ethereum.rpcURL;
+      break;
+    case "MATIC":
+      rpcURL = config.polygon.rpcURL;
+      break;
+  }
+}
 
 // 바이낸스 주소 생성
 export function createAddress() {
