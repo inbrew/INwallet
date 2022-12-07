@@ -18,6 +18,8 @@ export const addressState = atom({
     KLAYPrivateKey: "",
     KLAYBalance: "",
     MATICAddress: "",
+    MATICPrivateKey: "",
+    MATICBalance: "",
     STXAddress: "",
   },
   effects_UNSTABLE: [persistAtom],
