@@ -35,7 +35,7 @@ export default function ChainSelector() {
             <MenuItem value={"ETH"}>Ethereum(ETH)</MenuItem>
             {/* <MenuItem value={"ONE"}>Harmony(ONE)</MenuItem> */}
             <MenuItem value={"KLAY"}>Klaytn(KLAY)</MenuItem>
-            {/* <MenuItem value={"MATIC"}>Polygon(MATIC)</MenuItem> */}
+            <MenuItem value={"MATIC"}>Polygon(MATIC)</MenuItem>
             {/* <MenuItem value={"STX"}>Stacks(STX)</MenuItem> */}
           </Select>
         </FormControl>
