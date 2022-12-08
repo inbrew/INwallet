@@ -11,6 +11,10 @@ import { addressState } from "../recoil/address";
 // component
 import ImageChanger from "../component/ImageChanger";
 import INPolygon from "../component/MATIC/INPolygon";
+import PrivateKeyToAccountButton from "../component/MATIC/PrivateKeyToAccountButton";
+
+// api
+import { createAddress } from "../api/web3";
 
 export default function Polygon() {
   const [account, setAccount] = useRecoilState(addressState);
@@ -18,16 +22,14 @@ export default function Polygon() {
 
   const handleClick = async () => {
     if (account.MATICAddress.length === 0) {
-      // const createResult = await createAddress();
-
-      // setAccount((prev) => ({
-      //   ...prev,
-      //   MATICAddress: createResult._address,
-      //   MATICPrivateKey: createResult._key.privateKey,
-      // }));
-      // navigate("/INMATIC");
-
-      console.log("기능을 연결해야 합니다.");
+      const createResult = await createAddress();
+      console.log(createResult);
+      setAccount((prev) => ({
+        ...prev,
+        MATICAddress: createResult.address,
+        MATICPrivateKey: createResult.privateKey,
+      }));
+      navigate("/INMATIC");
     }
   };
   return (
@@ -59,9 +61,9 @@ export default function Polygon() {
               <Box onClick={handleClick}>
                 <ImageChanger />
               </Box>
-              {/* <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
                 <PrivateKeyToAccountButton />
-              </Box> */}
+              </Box>
             </Box>
           </Box>
         </Box>

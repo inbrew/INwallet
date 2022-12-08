@@ -21,7 +21,7 @@ export function whichChain(chain) {
   }
 }
 
-// 바이낸스 주소 생성
+// 주소 생성
 export function createAddress() {
   return web3.eth.accounts.create();
 }
