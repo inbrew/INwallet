@@ -16,6 +16,8 @@ module.exports = {
       chain = "bsc";
     } else if (req.query.chain === "KLAY") {
       chain = "klay";
+    } else if (req.query.chain === "MATIC") {
+      chain = "matic";
     }
 
     const getAddressInfoAPI = `https://testnet-api.blocksdk.com/v3/${chain}/address/${address}/info?api_token=${apikey}&offset=0&limit=10&order_direction=desc`;
