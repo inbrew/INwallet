@@ -12,7 +12,7 @@ import { useRecoilValue } from "recoil";
 import { addressState } from "../../recoil/address";
 
 // component
-// import UserGetPrivatekey from "./UserGetPrivatekey";
+import UserGetPrivatekey from "./UserGetPrivatekey";
 // import GetBalance from "./GetBalance";
 // import SendButton from "./SendButton";
 // import TransactionList from "./TransactionList";
@@ -35,11 +35,11 @@ export default function INPolygon() {
         <TextField
           id="standard-read-only-input"
           label="Address"
-          defaultValue={account.KLAYAddress}
+          defaultValue={account.MATICAddress}
           InputProps={{
             readOnly: true,
             endAdornment: (
-              <CopyToClipboard text={account.KLAYAddress}>
+              <CopyToClipboard text={account.MATICAddress}>
                 <ContentCopyIcon sx={{ cursor: "pointer" }} />
               </CopyToClipboard>
             ),
@@ -47,9 +47,9 @@ export default function INPolygon() {
           variant="standard"
           sx={{ width: "100%", mt: "20px" }}
         />
-        {/* <UserGetPrivatekey />
-        <GetBalance />
-        <SendButton /> */}
+        <UserGetPrivatekey />
+        {/* <GetBalance />
+        <SendButton />  */}
       </Box>
       <Box
         sx={{

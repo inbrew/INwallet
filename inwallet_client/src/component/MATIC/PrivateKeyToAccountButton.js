@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 
 // api
-import { privateKeyToAccount } from "../../api/ethereum";
+import { privateKeyToAccount } from "../../api/web3";
 import { getTxByAddress } from "../../api/common";
 
 // recoil

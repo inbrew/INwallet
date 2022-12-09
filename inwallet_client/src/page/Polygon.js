@@ -23,7 +23,6 @@ export default function Polygon() {
   const handleClick = async () => {
     if (account.MATICAddress.length === 0) {
       const createResult = await createAddress();
-      console.log(createResult);
       setAccount((prev) => ({
         ...prev,
         MATICAddress: createResult.address,
