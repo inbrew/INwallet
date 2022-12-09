@@ -13,7 +13,7 @@ import { addressState } from "../../recoil/address";
 
 // component
 import UserGetPrivatekey from "./UserGetPrivatekey";
-// import GetBalance from "./GetBalance";
+import GetBalance from "./GetBalance";
 // import SendButton from "./SendButton";
 // import TransactionList from "./TransactionList";
 
@@ -48,8 +48,8 @@ export default function INPolygon() {
           sx={{ width: "100%", mt: "20px" }}
         />
         <UserGetPrivatekey />
-        {/* <GetBalance />
-        <SendButton />  */}
+        <GetBalance />
+        {/* <SendButton />  */}
       </Box>
       <Box
         sx={{

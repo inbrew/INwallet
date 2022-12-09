@@ -4,19 +4,22 @@ const config = require("../config/config");
 // web3.js
 const Web3 = require("web3");
 let rpcURL;
-const web3 = new Web3(rpcURL);
+let web3 = new Web3(rpcURL);
 
 // web3-js를 사용하는 체인만 스위칭
 export function whichChain(chain) {
   switch (chain) {
     case "BNB":
       rpcURL = config.binance.rpcURL;
+      web3 = new Web3(rpcURL);
       break;
     case "ETH":
       rpcURL = config.ethereum.rpcURL;
+      web3 = new Web3(rpcURL);
       break;
     case "MATIC":
       rpcURL = config.polygon.rpcURL;
+      web3 = new Web3(rpcURL);
       break;
   }
 }
@@ -32,29 +35,31 @@ export function privateKeyToAccount(privateKey) {
 }
 // 잔액 조회
 export async function getBalance(address) {
-  const balance = await web3.eth.getBalance(address).then((data) => {
-    return data;
-  });
-  const convertBalance = await web3.utils.fromWei(`${balance}`, "ether");
-  let floorBalance;
-  let decimal;
-  let sliceIndex = 0;
-  const arrayBalance = convertBalance.split("");
+  if (rpcURL) {
+    const balance = await web3.eth.getBalance(address).then((data) => {
+      return data;
+    });
+    const convertBalance = await web3.utils.fromWei(`${balance}`, "ether");
+    let floorBalance;
+    let decimal;
+    let sliceIndex = 0;
+    const arrayBalance = convertBalance.split("");
 
-  for (let i = 0; i < arrayBalance.length; i++) {
-    if (arrayBalance[i] === ".") {
-      sliceIndex = i;
-      break;
+    for (let i = 0; i < arrayBalance.length; i++) {
+      if (arrayBalance[i] === ".") {
+        sliceIndex = i;
+        break;
+      }
     }
-  }
 
-  decimal = convertBalance.slice(sliceIndex + 1);
+    decimal = convertBalance.slice(sliceIndex + 1);
 
-  if (decimal.length > 4) {
-    floorBalance = Number(convertBalance).toFixed(4);
-    return floorBalance;
+    if (decimal.length > 4) {
+      floorBalance = Number(convertBalance).toFixed(4);
+      return floorBalance;
+    }
+    return convertBalance;
   }
-  return convertBalance;
 }
 
 // 유효한 주소인지 확인
