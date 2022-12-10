@@ -14,8 +14,8 @@ import { addressState } from "../../recoil/address";
 // component
 import UserGetPrivatekey from "./UserGetPrivatekey";
 import GetBalance from "./GetBalance";
-// import SendButton from "./SendButton";
-// import TransactionList from "./TransactionList";
+import SendButton from "./SendButton";
+import TransactionList from "./TransactionList";
 
 export default function INPolygon() {
   const account = useRecoilValue(addressState);
@@ -49,7 +49,7 @@ export default function INPolygon() {
         />
         <UserGetPrivatekey />
         <GetBalance />
-        {/* <SendButton />  */}
+        <SendButton />
       </Box>
       <Box
         sx={{
@@ -68,7 +68,7 @@ export default function INPolygon() {
           <Typography variant="h5">거래 내역</Typography>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          {/* <TransactionList /> */}
+          <TransactionList />
         </Box>
       </Box>
     </Box>
