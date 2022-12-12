@@ -4,14 +4,17 @@ import React, { useState } from "react";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { Receipt, Loyalty } from "@mui/icons-material";
 
+// recoil
+import { useRecoilState } from "recoil";
+import { receiptOrNft } from "../recoil/receiptOrNft";
+
 export default function NFTorTransactionSeletor() {
-  const [alignment, setAlignment] = useState("receipt");
+  const [alignment, setAlignment] = useRecoilState(receiptOrNft);
 
   const handleChange = (event, newAlignment) => {
-    setAlignment(newAlignment);
+    setAlignment({ whichSelect: newAlignment });
   };
 
-  console.log(alignment);
   return (
     <ToggleButtonGroup
       color="primary"

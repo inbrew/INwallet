@@ -10,6 +10,7 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 // recoil
 import { useRecoilValue } from "recoil";
 import { addressState } from "../../recoil/address";
+import { receiptOrNft } from "../../recoil/receiptOrNft";
 
 // component
 import UserGetPrivatekey from "./UserGetPrivatekey";
@@ -20,6 +21,7 @@ import NFTorTransactionSeletor from "../NFTorTransactionSeletor";
 
 export default function INPolygon() {
   const account = useRecoilValue(addressState);
+  const whichContents = useRecoilValue(receiptOrNft);
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
       <Box
@@ -66,12 +68,18 @@ export default function INPolygon() {
         }}
       >
         <NFTorTransactionSeletor />
-        <Box sx={{ display: "flex", justifyContent: "center", mb: "5%" }}>
-          <Typography variant="h5">거래 내역</Typography>
-        </Box>
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <TransactionList />
-        </Box>
+        {whichContents.whichSelect === "receipt" ? (
+          <>
+            <Box sx={{ display: "flex", justifyContent: "center", m: "5%" }}>
+              <Typography variant="h5">거래 내역</Typography>
+            </Box>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <TransactionList />
+            </Box>
+          </>
+        ) : (
+          <>NFT</>
+        )}
       </Box>
     </Box>
   );
