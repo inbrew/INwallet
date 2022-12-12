@@ -16,6 +16,7 @@ import UserGetPrivatekey from "./UserGetPrivatekey";
 import GetBalance from "./GetBalance";
 import SendButton from "./SendButton";
 import TransactionList from "./TransactionList";
+import NFTorTransactionSeletor from "../NFTorTransactionSeletor";
 
 export default function INPolygon() {
   const account = useRecoilValue(addressState);
@@ -64,6 +65,7 @@ export default function INPolygon() {
           flexDirection: "column",
         }}
       >
+        <NFTorTransactionSeletor />
         <Box sx={{ display: "flex", justifyContent: "center", mb: "5%" }}>
           <Typography variant="h5">거래 내역</Typography>
         </Box>
