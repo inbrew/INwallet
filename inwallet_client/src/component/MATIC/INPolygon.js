@@ -18,6 +18,7 @@ import GetBalance from "./GetBalance";
 import SendButton from "./SendButton";
 import TransactionList from "./TransactionList";
 import NFTorTransactionSeletor from "../NFTorTransactionSeletor";
+import NFTlist from "../NFTlist";
 
 export default function INPolygon() {
   const account = useRecoilValue(addressState);
@@ -78,7 +79,7 @@ export default function INPolygon() {
             </Box>
           </>
         ) : (
-          <>NFT</>
+          <NFTlist />
         )}
       </Box>
     </Box>
