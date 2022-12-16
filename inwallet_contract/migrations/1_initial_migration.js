@@ -1,10 +1,16 @@
 const inProxy = artifacts.require("InProxy");
+const inNFT = artifacts.require("InNFT");
+
+const { makeInProxy } = require("../data/makeJson");
 
 module.exports = async function (deployer) {
-  await deployer.deploy(inProxy);
+  await deployer.deploy(inNFT);
+  const inNFTContract = await inNFT.deployed();
 
+  await deployer.deploy(inProxy, inNFTContract.address, sha3);
   const inProxyContract = await inProxy.deployed();
 
-  // makeData 해야함
-  // make...
+  await inNFTContract.setContractAddress(inProxyContract.address);
+
+  makeInProxy(inProxyContract.address);
 };
