@@ -9,9 +9,9 @@ import "./IERC721Metadata.sol";
 
 import "../introspection/ERC165.sol";
 
-import "../Address.sol";
-import "../Context.sol";
-import "../Strings.sol";
+import "../utilContract/Address.sol";
+import "../utilContract/Context.sol";
+import "../utilContract/Strings.sol";
 
 /**
  * @dev Implementation of https://eips.ethereum.org/EIPS/eip-721[ERC721] Non-Fungible Token Standard, including

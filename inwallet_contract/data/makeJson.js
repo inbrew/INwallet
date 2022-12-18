@@ -22,14 +22,16 @@ const makeData = (json, address) => {
   });
 };
 
-const makeInProxy = async (address) => {
-  makeFile(
-    "/data/ABI/InProxy.json",
-    "/data/JsonData/InProxyData.json",
-    address
-  );
-};
-
 module.exports = {
-  makeInProxy,
+  makeInProxy: async (address) => {
+    makeFile(
+      "/data/ABI/InProxy.json",
+      "/data/JsonData/InProxyData.json",
+      address
+    );
+  },
+
+  makeInNFT: async (address) => {
+    makeFile("/data/ABI/InNFT.json", "/data/JsonData/InNFTData.json", address);
+  },
 };
