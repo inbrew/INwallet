@@ -8,13 +8,13 @@ import { Box } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { addressState } from "../recoil/address";
 
-// api
-import { createAddress } from "../api/binance";
-
 // component
 import PrivateKeyToAccountButton from "../component/BNB/PrivateKeyToAccountButton";
 import ImageChanger from "../component/ImageChanger";
 import INBinance from "../component/BNB/INBinance";
+
+// api
+const { createAddress } = require("../api/binance");
 
 export default function Binance() {
   const [account, setAccount] = useRecoilState(addressState);
