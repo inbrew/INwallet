@@ -5,13 +5,13 @@ const app = express();
 const PORT = 4000;
 
 // 로컬에서만 사용(origin)
-// app.use(
-//   cors({
-//     origin: true,
-//     credentials: true,
-//     methods: ["GET", "PUT", "POST", "OPTIONS"],
-//   })
-// );
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+    methods: ["GET", "PUT", "POST", "OPTIONS"],
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());
