@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import sendMoneyImage from "../../image/sendMoney.png";
 
 // MUI css
@@ -17,23 +17,29 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { green } from "@mui/material/colors";
 
 // recoil
-import { useSetRecoilState, useRecoilValue } from "recoil";
+import { useSetRecoilState, useRecoilValue, useRecoilState } from "recoil";
 import { loadingState } from "../../recoil/loading";
 import { addressState } from "../../recoil/address";
 import { txState } from "../../recoil/tx";
+import { chainState } from "../../recoil/chain";
 
 // api
+<<<<<<< HEAD
 const {
   isAddress,
   estimateGas,
   sendRawTransaction,
 } = require("../../api/klaytn");
+=======
+import { isAddress, estimateGas, sendRawTransaction } from "../../api/klaytn";
+import { getTxByAddress } from "../../api/common";
+>>>>>>> 5532c8113a5d94d9e5fce826c399fe5ee27a4980
 
 export default function SendButton() {
   const [open, setOpen] = useState(false);
   const [isCheck, setIsCheck] = useState(false);
   const [isError, setIsError] = useState(false);
-  const account = useRecoilValue(addressState);
+  const [account, setAccount] = useRecoilState(addressState);
   const setLoading = useSetRecoilState(loadingState);
   let isValidAddress;
   const [transactionOBJ, setTransactionOBJ] = useState({
@@ -44,7 +50,8 @@ export default function SendButton() {
   });
   const [isErrorValue, setIsErrorValue] = useState(false);
   const [isTransanctionProgress, setIsTransanctionProgress] = useState(false);
-  const setTxState = useSetRecoilState(txState);
+  const [nowTx, setTx] = useRecoilState(txState);
+  const chain = useRecoilValue(chainState);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -116,23 +123,28 @@ export default function SendButton() {
     });
     setIsTransanctionProgress(true);
 
-    await sendRawTransaction(transactionOBJ, account.KLAYPrivateKey);
-    // const Tx = await sendTransaction(transactionOBJ, account.KLAYAddress);
+    const Tx = await sendRawTransaction(transactionOBJ, account.KLAYPrivateKey);
     setOpen(false);
 
-    // if (Tx) {
-    //   setLoading({
-    //     isLoading: false,
-    //   });
-    //   setTxState({
-    //     tx: Tx,
-    //   });
-    //   handleClose();
-    // }
-    setLoading({
-      isLoading: false,
-    });
+    if (Tx) {
+      setLoading({
+        isLoading: false,
+      });
+      handleGetTxList();
+      handleClose();
+    }
   };
+
+  const handleGetTxList = useCallback(async () => {
+    const prevTx = await getTxByAddress(account.KLAYAddress, chain.SelectChain);
+    // console.log("api로 불러온 tx들", prevTx);
+    if (prevTx) {
+      setTx((prev) => ({
+        ...prev,
+        klayTx: prevTx,
+      }));
+    }
+  }, [account.KLAYAddress, setTx, nowTx]);
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center", mt: "3%" }}>

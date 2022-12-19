@@ -19,6 +19,10 @@ import INbinance from "../image/BNB/IN_binance.png";
 import klay from "../image/KLAY/klay.png";
 import INklay from "../image/KLAY/IN_klay.png";
 
+// MATIC image
+import polygon from "../image/MATIC/polygon.png";
+import INpolygon from "../image/MATIC/IN_polygon.png";
+
 export default function ImageChanger() {
   const [hoverState, setHoverState] = useState(false);
   const nowChain = useRecoilValue(chainState);
@@ -35,6 +39,9 @@ export default function ImageChanger() {
   } else if (nowChain.SelectChain === "KLAY") {
     nowImage = klay;
     nowHoverImage = INklay;
+  } else if (nowChain.SelectChain === "MATIC") {
+    nowImage = polygon;
+    nowHoverImage = INpolygon;
   }
 
   const handleHoverIn = () => {

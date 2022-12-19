@@ -21,6 +21,8 @@ import { loadingState } from "../../recoil/loading";
 // api
 const { getTransactionReceipt } = require("../../api/klaytn");
 
+// import TestButton from "../TestButton";
+
 export default function TransactionListItem() {
   const transactions = useRecoilValue(txState);
   const setLoading = useSetRecoilState(loadingState);
@@ -72,7 +74,7 @@ export default function TransactionListItem() {
     handleEventTransaction();
   }, [handleEventTransaction, transactions.klayTx]);
 
-  // console.log("그래서 여긴 뭐야?", modalData);
+  // console.log("그래서 여긴 뭐야?", transactions.klayTx);
   return (
     <Box>
       {addNewTransaction.tx.length === 0 ? (

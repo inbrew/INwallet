@@ -16,6 +16,7 @@ import {
 import binance from "../image/mainBinance.png";
 import ethereum from "../image/mainEthereum.png";
 import klaytn from "../image/mainKlaytn.png";
+import polygon from "../image/mainPolygon.png";
 
 function generate(element) {
   return [0, 1, 2].map((value) =>
@@ -94,6 +95,18 @@ export default function Main() {
                       />
                     </ListItemIcon>
                     <ListItemText primary="Klaytn - Baobab" />
+                  </ListItem>
+                  <Divider />
+                  <ListItem>
+                    <ListItemIcon>
+                      <img
+                        src={polygon}
+                        width="auto"
+                        height="30px"
+                        alt="polygon"
+                      />
+                    </ListItemIcon>
+                    <ListItemText primary="Polygon - Mumbai" />
                   </ListItem>
                 </List>
               </Box>

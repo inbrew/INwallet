@@ -1,0 +1,86 @@
+{
+	"compiler": {
+		"version": "0.8.4+commit.c7e474f2"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_implementation",
+						"type": "address"
+					},
+					{
+						"internalType": "bytes",
+						"name": "_data",
+						"type": "bytes"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "fallback"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "receive"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/InProxy.sol": "InProxy"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/InProxy.sol": {
+			"keccak256": "0x3037a1a85b7d7e7e01c04f5077f448f909c94159e083cc248f3610a310e3d474",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://68deb8f5d79a6ab09f376d8e43bed449f1b53a9123db03f8a134ab7d12955e31",
+				"dweb:/ipfs/QmceacjgFsakZ3kBxf5yFtQwGtkmXRPScfLLEVq3gadHZT"
+			]
+		},
+		"contracts/utilContract/Address.sol": {
+			"keccak256": "0x02a6899c882d195a02420306982d76750bf14c4710a0c7d248c76e5386492b91",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://0c910dd83a5d44e15cd933c1201d80f972adc429beb732d6e7e58980aea00891",
+				"dweb:/ipfs/QmP2jjB4a85F5KDdNno8TXDLvJwsXhh39mZLy6JXSW6433"
+			]
+		},
+		"contracts/utilContract/StorageSlot.sol": {
+			"keccak256": "0x75f6691edb813709cb8319aa45f63c33017ec6c1bbf4622106ecd58e99a54161",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://4e7c5d37a1f59dbe22b1413b043b63f0d55eb938953a4296a5f7ab21fe172315",
+				"dweb:/ipfs/QmeFVzz7ji8VJEHeFxc8FQMsvK9hDwiiAwaC65QYxmhsUL"
+			]
+		}
+	},
+	"version": 1
+}

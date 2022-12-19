@@ -15,7 +15,7 @@ export default function Loading() {
   const address = useRecoilValue(addressState);
   const handleClick = async () => {
     // createAddress();
-    const result = await estimateGas();
+    const result = await getTransactionReceipt();
 
     // console.log("트랜잭션 영수증", result);
     // console.log("주소", address);

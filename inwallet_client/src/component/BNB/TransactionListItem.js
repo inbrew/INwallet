@@ -96,8 +96,8 @@ export default function TransactionListItem() {
         </Box>
       ) : (
         <Box>
-          {addNewTransaction.tx.map((el) => (
-            <Box key={`Box ${el.transactionIndex}`} onClick={handleClickOpen}>
+          {addNewTransaction.tx.map((el, i) => (
+            <Box key={`Box ${i}`} onClick={handleClickOpen}>
               <ListItem
                 alignItems="flex-start"
                 key={el.transactionIndex}
