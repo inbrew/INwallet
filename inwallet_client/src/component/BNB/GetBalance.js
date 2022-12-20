@@ -3,15 +3,23 @@ import React, { useEffect, useState, useCallback } from "react";
 // MUI css
 import { Box, Typography } from "@mui/material";
 
+<<<<<<< HEAD
+=======
 // api
 import { getBalance } from "../../api/binance";
 import { getTxByAddress } from "../../api/common";
 
+>>>>>>> 5532c8113a5d94d9e5fce826c399fe5ee27a4980
 // recoil
 import { useRecoilState, useRecoilValue } from "recoil";
 import { addressState } from "../../recoil/address";
 import { txState } from "../../recoil/tx";
+<<<<<<< HEAD
+// api
+const { getBalance, getTxByAddress } = require("../../api/binance");
+=======
 import { chainState } from "../../recoil/chain";
+>>>>>>> 5532c8113a5d94d9e5fce826c399fe5ee27a4980
 
 export default function GetBalance() {
   const [account, setAccount] = useRecoilState(addressState);

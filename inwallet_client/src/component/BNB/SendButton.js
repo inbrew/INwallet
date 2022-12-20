@@ -24,14 +24,18 @@ import { txState } from "../../recoil/tx";
 import { chainState } from "../../recoil/chain";
 
 // api
-import {
+const {
   isAddress,
   getGasPrice,
   sendTransaction,
   getNonce,
   gasLimit,
+<<<<<<< HEAD
+} = require("../../api/binance");
+=======
 } from "../../api/binance";
 import { getTxByAddress } from "../../api/common";
+>>>>>>> 5532c8113a5d94d9e5fce826c399fe5ee27a4980
 
 export default function SendButton() {
   const [open, setOpen] = useState(false);
