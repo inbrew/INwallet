@@ -11,7 +11,7 @@ const init = async () => {
   try {
     await shell.exec(compileString);
     console.log("-------------- 컴파일 완료 --------------");
-    console.log(" ");
+    console.log("   ");
     console.log("-------------- 배포를 시작합니다. --------------");
     await shell.exec(deployString);
     console.log("-------------- 배포 완료 --------------");
